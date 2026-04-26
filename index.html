@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Plataforma de Estudos</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+
+      background: url("https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .overlay {
+      background: rgba(0,0,0,0.55);
+      height: 100vh;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      color: white;
+      margin-bottom: 50px;
+      font-size: 38px;
+      letter-spacing: 1px;
+    }
+
+    .menu {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      width: 260px;
+      padding: 25px;
+      font-size: 20px;
+      border-radius: 15px;
+      text-decoration: none;
+      color: white;
+
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(12px);
+
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: rgba(255,255,255,0.25);
+      transform: translateY(-5px) scale(1.03);
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="overlay">
+
+  <h1>📚 Plataforma de Estudos</h1>
+
+  <div class="menu">
+    <a class="btn" href="bancodados.html">💾 Banco de Dados</a>
+    <a class="btn" href="linguagem.html">💻 Linguagem e Programação</a>
+    <a class="btn" href="ferramentas.html">🛠️ Técnicas e Ferramentas</a>
+  </div>
+
+</div>
+
+</body>
+</html>

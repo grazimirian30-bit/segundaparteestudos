@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Módulo 1 - Linguagem</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      background-image: url("https://images.unsplash.com/photo-1555066931-4365d14bab8c");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    /* fundo escuro */
+    body::before {
+      content: "";
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      padding: 20px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
+      cursor: pointer;
+      transition: 0.2s;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .card:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-5px);
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      cursor: pointer;
+      background: #38bdf8;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🛠️ Módulo 4 - Linguagem e Programação</h1>
+
+  <div class="container">
+
+    <!-- RESUMO -->
+    <div class="card" onclick="abrirPagina('resumo4lp.html')
+    ">
+      <h2>💻 Resumo</h2>
+      <p>Manipulação de arquivo e resolução de problemas</p>
+    </div>
+
+    <!-- AVALIAÇÕES -->
+    <div class="card" onclick="abrirPagina('ava4lp.html')">
+      <h2>🗄️ Avaliações</h2>
+      <p>Módulo 3</p>
+    </div>
+
+    <!-- VOLTAR -->
+    <button onclick="history.back()">⬅ Voltar</button>
+
+  </div>
+
+  <script>
+    function abrirPagina(pagina){
+      window.location.href = pagina;
+    }
+  </script>
+
+</body>
+</html>

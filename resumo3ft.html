@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 3: Alocação Dinâmica e Structs - Guia Definitivo</title>
+    <style>
+        :root {
+            --primary: #a855f7;
+            --bg: #020617;
+            --card-bg: #0f172a;
+            --text: #f1f5f9;
+            --accent: #22d3ee;
+            --danger: #ef4444;
+            --code-bg: #000;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1000px; margin: auto; padding: 40px 20px; }
+
+        header {
+            text-align: center;
+            border-bottom: 4px solid var(--primary);
+            padding-bottom: 40px;
+            margin-bottom: 50px;
+            background: linear-gradient(to bottom, #1e1b4b, var(--bg));
+        }
+
+        h1 { color: var(--primary); font-size: 2.8rem; margin: 0; }
+        .badge { background: var(--primary); color: white; padding: 5px 15px; border-radius: 8px; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        h2 { color: var(--primary); display: flex; align-items: center; gap: 15px; font-size: 1.8rem; }
+        h3 { color: var(--accent); margin-top: 30px; border-left: 4px solid var(--accent); padding-left: 15px; }
+
+        /* Diagramas de Memória */
+        .diagram-container {
+            background: rgba(0,0,0,0.4);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border: 1px dashed var(--accent);
+            text-align: center;
+        }
+
+        .heap-viz {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .byte-box {
+            width: 45px;
+            height: 45px;
+            border: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            background: #1e293b;
+        }
+
+        .byte-box.allocated { background: var(--primary); color: white; border-color: white; box-shadow: 0 0 10px var(--primary); }
+        .byte-box.null { background: #450a0a; color: var(--danger); }
+
+        pre {
+            background: var(--code-bg);
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            border-left: 6px solid var(--primary);
+            font-family: 'Consolas', monospace;
+            font-size: 0.95rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) { .info-grid { grid-template-columns: 1fr; } }
+
+        .warning-card {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 15px; border: 1px solid #334155; text-align: left; }
+        th { background: #0f172a; color: var(--primary); }
+
+        .tag { color: var(--accent); font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <span class="badge">Avançado - Engenharia</span>
+        <h1>Módulo 3: Gerenciamento Dinâmico</h1>
+        <p>Structs, Heap Memory e Alocação de Baixo Nível</p>
+    </header>
+
+    <!-- 1. ESTRUTURAS COMPLEXAS -->
+    <div class="section">
+        <h2>
+            <svg class="icon" style="width:32px; height:32px; fill:var(--primary)" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+            1. Structs e a Organização de Dados
+        </h2>
+        <p>As <b>Structs</b> (Registros) permitem criar novos tipos que agrupam diferentes variáveis. Elas são a base para estruturas como Listas Ligadas e Árvores.</p>
+        
+        <pre>
+typedef struct {
+    char nome[50];
+    int idade;
+    float salario;
+} Funcionario;
+
+Funcionario f1; // Criando uma instância</pre>
+
+        <h3>O Operador de Ponteiro Struct (->)</h3>
+        <p>Quando acessamos uma struct através de um ponteiro, usamos a "seta" (<code>-></code>), que faz a desreferência automática.</p>
+        <div class="diagram-container">
+            <code>Funcionario *ptr = &f1;</code><br><br>
+            <strong>ptr->idade</strong> é o mesmo que <strong>(*ptr).idade</strong>
+        </div>
+    </div>
+
+    <!-- 2. ALOCAÇÃO DINÂMICA -->
+    <div class="section">
+        <h2>
+            <svg class="icon" style="width:32px; height:32px; fill:var(--primary)" viewBox="0 0 24 24"><path d="M13 13v8h8v-8h-8zM3 21h8v-8H3v8zM3 3v8h8V3H3z"/></svg>
+            2. Alocação Dinâmica na Heap
+        </h2>
+        <p>Diferente da <b>Stack</b> (automática), a <b>Heap</b> é uma memória manual que não se apaga sozinha ao fim de uma função.</p>
+
+        <table>
+            <tr>
+                <th>Função</th>
+                <th>Objetivo Principal</th>
+                <th>Estado da Memória</th>
+            </tr>
+            <tr>
+                <td><span class="tag">malloc()</span></td>
+                <td>Aloca tamanho em bytes.</td>
+                <td>Contém lixo de memória.</td>
+            </tr>
+            <tr>
+                <td><span class="tag">calloc()</span></td>
+                <td>Aloca N elementos de X tamanho.</td>
+                <td>Memória limpa (tudo zero).</td>
+            </tr>
+            <tr>
+                <td><span class="tag">realloc()</span></td>
+                <td>Aumenta ou diminui o bloco.</td>
+                <td>Mantém os dados anteriores.</td>
+            </tr>
+        </table>
+
+        <div class="diagram-container">
+            <strong>Estado da Heap após <code>malloc(4 * sizeof(int))</code>:</strong>
+            <div class="heap-viz">
+                <div class="byte-box allocated">INT</div>
+                <div class="byte-box allocated">INT</div>
+                <div class="byte-box allocated">INT</div>
+                <div class="byte-box allocated">INT</div>
+                <div class="byte-box">Livre</div>
+                <div class="byte-box">Livre</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. MATRIZES DINÂMICAS -->
+    <div class="section">
+        <h2>
+            <svg class="icon" style="width:32px; height:32px; fill:var(--primary)" viewBox="0 0 24 24"><path d="M3 3h18v18H3V3zm16 16V5H5v14h14z"/></svg>
+            3. Alocação de Matrizes (Ponteiro para Ponteiro)
+        </h2>
+        <p>Para criar matrizes dinâmicas, alocamos primeiro um "vetor de ponteiros" e depois cada linha individualmente.</p>
+        
+        <pre>
+int **mat;
+mat = (int **) malloc(lin * sizeof(int *)); // Aloca linhas
+
+for(i=0; i < lin; i++)
+    mat[i] = (int *) malloc(col * sizeof(int)); // Aloca colunas</pre>
+
+        <div class="warning-card">
+            <strong>🛑 Ordem Crucial de Liberação:</strong>
+            <p>1º: <code>free()</code> em cada linha (dentro do loop).<br>
+               2º: <code>free()</code> no ponteiro principal da matriz.</p>
+        </div>
+    </div>
+
+    <!-- 4. MEMORY LEAKS E SEGURANÇA -->
+    <div class="section">
+        <h2>
+            <svg class="icon" style="width:32px; height:32px; fill:var(--primary)" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 14h-2v-2h2v2zm0-4h-2V8h2v4z"/></svg>
+            4. Perigos de Memória
+        </h2>
+        <div class="info-grid">
+            <div style="border: 1px solid #334155; padding: 15px; border-radius: 10px;">
+                <h3 style="margin-top:0">Memory Leak</h3>
+                <p>Ocorre quando você perde o endereço da memória alocada sem dar <code>free()</code>. O programa continua ocupando RAM inutilmente.</p>
+            </div>
+            <div style="border: 1px solid #334155; padding: 15px; border-radius: 10px;">
+                <h3 style="margin-top:0">Dangling Pointer</h3>
+                <p>Ocorre quando você acessa uma memória que já foi liberada com <code>free()</code>. Causa comportamentos imprevisíveis.</p>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 20px;">
+            <span class="tag">Boa Prática:</span> Após o <code>free(p)</code>, faça sempre <code>p = NULL;</code>.
+        </p>
+    </div>
+
+    <button onclick="window.print()" style="width:100%; padding:20px; background:var(--primary); color:white; border:none; border-radius:15px; font-weight:bold; cursor:pointer; font-size: 1.1rem;">🖨️ Imprimir Guia Definitivo do Módulo 3</button>
+
+</div>
+
+</body>
+</html>

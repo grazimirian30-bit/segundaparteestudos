@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enciclopédia Visual: Banco de Dados - Módulo 1</title>
+    <style>
+        :root {
+            --primary: #1a4a44;
+            --secondary: #2c7a71;
+            --accent: #eef7f6;
+            --text: #2d3436;
+            --gold: #d4af37;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f2;
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .container { max-width: 1100px; margin: -40px auto 50px; padding: 0 20px; }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-top: 8px solid var(--primary);
+        }
+
+        h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-top: 0; }
+
+        /* --- GRÁFICO 1: A PIRÂMIDE DO CONCEITO ZERO --- */
+        .piramide-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .level {
+            width: 80%;
+            height: 50px;
+            margin: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+            transition: transform 0.3s;
+        }
+
+        .level:hover { transform: scale(1.05); cursor: help; }
+        .lv1 { width: 30%; background: #1a4a44; clip-path: polygon(50% 0%, 50% 0%, 100% 100%, 0% 100%); }
+        .lv2 { width: 50%; background: #24635b; }
+        .lv3 { width: 70%; background: #2c7a71; }
+        .lv4 { width: 90%; background: #3ba397; }
+
+        /* --- GRÁFICO 2: DER VISUAL --- */
+        .der-visual {
+            background: #fafafa;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .node {
+            padding: 15px 25px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .entidade { border: 3px solid var(--primary); background: white; width: 120px; }
+        .relacionamento { 
+            width: 80px; height: 80px; 
+            background: white; border: 2px solid var(--secondary);
+            transform: rotate(45deg); display: flex; align-items: center; justify-content: center;
+            margin: 20px auto;
+        }
+        .relacionamento span { transform: rotate(-45deg); font-size: 0.8rem; }
+
+        /* --- GRÁFICO 3: CICLO DE VIDA --- */
+        .workflow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .step {
+            width: 30%;
+            background: var(--accent);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step::after {
+            content: '→';
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+
+        .step:last-child::after { content: ''; }
+
+        /* --- LISTAS E TABELAS --- */
+        .highlight { color: var(--secondary); font-weight: bold; }
+        .badge { background: var(--primary); color: white; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Manual Visual: Módulo 1</h1>
+    <p>Conceitos do "Zero Absoluto" à Modelagem Profissional</p>
+</header>
+
+<div class="container">
+
+    <!-- SEÇÃO ZERO ABSOLUTO -->
+    <section class="card">
+        <h2>🧱 1. O Zero Absoluto: De 0 e 1 à Informação</h2>
+        <p>Tudo começa com o pulso elétrico. Para o computador, o dado é binário. A transformação ocorre assim:</p>
+        
+        <div class="piramide-container">
+            <div class="level lv1" title="Unidade básica de registro binário">DADO (Fato Bruto)</div>
+            <div class="level lv2" title="Dado com contexto (Ex: Nome)">CAMPO (Significado)</div>
+            <div class="level lv3" title="Conjunto de campos (Ex: Ficha do Aluno)">REGISTRO (Objeto)</div>
+            <div class="level lv4" title="Conjunto de registros organizado">BANCO DE DADOS</div>
+        </div>
+
+        <p><strong>Por que não usar apenas arquivos de texto?</strong> O material destaca que sistemas de arquivos comuns geram <span class="highlight">redundância</span> (dados repetidos) e <span class="highlight">inconsistência</span> (dados diferentes para a mesma coisa).</p>
+    </section>
+
+    <!-- SEÇÃO SGBD -->
+    <section class="card">
+        <h2>🛡️ 2. O SGBD: O Guardião dos Dados</h2>
+        <p>O <strong>Sistema de Gerenciamento de Banco de Dados</strong> é o software que faz a ponte entre o usuário e os dados. Suas funções principais são:</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px;">
+                <span class="badge">Atomicidade</span> Garante que uma operação complexa (como transferência bancária) ocorra inteira ou não ocorra nada.
+            </div>
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px;">
+                <span class="badge">Segurança</span> Controla quem pode ver ou apagar cada informação.
+            </div>
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px;">
+                <span class="badge">Integridade</span> Impede que dados inválidos (como idade negativa) sejam salvos.
+            </div>
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px;">
+                <span class="badge">Concorrência</span> Permite que mil pessoas acessem o mesmo dado sem travar o sistema.
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DER DETALHADO -->
+    <section class="card">
+        <h2>📐 3. Gráfico Detalhado: Modelagem Conceitual (DER)</h2>
+        <p>Este é o desenho que você faz antes de qualquer código. Veja a anatomia:</p>
+        
+        <div class="der-visual">
+            <div style="text-align: center;">
+                <!-- Atributos -->
+                <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+                    <div style="border: 2px solid black; border-radius: 50%; padding: 5px 15px; background: #333; color: white;">ID_Prod</div>
+                    <div style="border: 2px solid black; border-radius: 50%; padding: 5px 15px;">Descrição</div>
+                    <div style="border: 2px solid black; border-radius: 50%; padding: 5px 15px; border-style: double;">Preço</div>
+                </div>
+                
+                <!-- Entidade -->
+                <div class="node entidade">PRODUTO</div>
+                
+                <!-- Linha -->
+                <div style="width: 2px; height: 30px; background: black; margin: 0 auto;"></div>
+                
+                <!-- Relacionamento -->
+                <div class="relacionamento"><span>Possui</span></div>
+                
+                <p style="color: #666; font-size: 0.8rem;">(Este gráfico representa uma Entidade com seus atributos e um Relacionamento)</p>
+            </div>
+        </div>
+
+        <h3>Tipos de Atributos (Glossário Visual)</h3>
+        <ul>
+            <li><strong>Determinante:</strong> Identificador único (ID). É o círculo preenchido.</li>
+            <li><strong>Composto:</strong> Se divide em outros (Ex: Endereço -> Rua, CEP).</li>
+            <li><strong>Multivalorado:</strong> Pode ter vários valores (Ex: Telefone 1, Telefone 2). Representado por linha dupla.</li>
+        </ul>
+    </section>
+
+    <!-- SEÇÃO WORKFLOW -->
+    <section class="card">
+        <h2>🔄 4. O Fluxo de Criação (Do Cliente ao Banco)</h2>
+        <p>Não se pula direto para o código. O processo profissional segue este workflow:</p>
+        
+        <div class="workflow">
+            <div class="step">
+                <strong>1. Modelo Descritivo</strong>
+                <p style="font-size: 0.8rem;">Entrevista e texto com os requisitos do negócio.</p>
+            </div>
+            <div class="step">
+                <strong>2. Modelo Conceitual</strong>
+                <p style="font-size: 0.8rem;">O desenho (DER). Foco na regra de negócio.</p>
+            </div>
+            <div class="step">
+                <strong>3. Modelo Lógico</strong>
+                <p style="font-size: 0.8rem;">Tabelas reais, PKs, FKs e tipos de dados (Int, Varchar).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO ESPECIALIZAÇÃO -->
+    <section class="card">
+        <h2>🧬 5. Especialização: A Árvore de Decisão</h2>
+        <p>Quando uma entidade tem subtipos (Ex: Pessoa -> Física ou Jurídica):</p>
+        <table style="width:100%; border-collapse: collapse; margin-top: 20px;">
+            <tr style="background: var(--primary); color: white;">
+                <th style="padding: 10px;">Sigla</th>
+                <th style="padding: 10px;">Significado</th>
+                <th style="padding: 10px;">Regra de Ouro</th>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 10px; text-align: center;"><strong>(t, d)</strong></td>
+                <td style="padding: 10px;">Total Disjuntiva</td>
+                <td style="padding: 10px;">DEVE ser um dos filhos e APENAS um.</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd; background: #f9f9f9;">
+                <td style="padding: 10px; text-align: center;"><strong>(p, c)</strong></td>
+                <td style="padding: 10px;">Parcial Compartilhada</td>
+                <td style="padding: 10px;">Pode não ser nenhum, ou ser vários ao mesmo tempo.</td>
+            </tr>
+        </table>
+    </section>
+
+</div>
+
+<footer>
+    <p>Gerado para estudo offline do Módulo 1 - Banco de Dados | 2023</p>
+</footer>
+
+<script>
+    console.log("Infográfico Educacional Carregado: Conceitos Zero Absoluto e Gráficos DER.");
+</script>
+
+</body>
+</html>

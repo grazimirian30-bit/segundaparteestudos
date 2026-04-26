@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Supremo: Unidade 4 - Arquitetura de Dados e Resiliência</title>
+    <style>
+        :root {
+            --navy: #0f172a;
+            --slate: #334155;
+            --blue: #0ea5e9;
+            --amber: #f59e0b;
+            --red: #ef4444;
+            --emerald: #10b981;
+            --bg: #f8fafc;
+            --code-bg: #011627;
+            --code-text: #d6deeb;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--navy);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--navy), var(--slate));
+            color: white;
+            padding: 120px 20px;
+            text-align: center;
+            border-bottom: 10px solid var(--blue);
+        }
+
+        .container { max-width: 1300px; margin: -100px auto 100px; padding: 0 20px; }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 60px;
+            margin-bottom: 50px;
+            box-shadow: 0 25px 70px -10px rgba(0,0,0,0.15);
+            border-left: 15px solid var(--blue);
+        }
+
+        h2 { color: var(--navy); font-size: 2.5rem; border-bottom: 4px solid #e2e8f0; padding-bottom: 20px; margin-top: 0; }
+        h3 { color: var(--blue); margin-top: 3rem; font-size: 1.8rem; border-left: 6px solid var(--amber); padding-left: 20px; }
+
+        /* --- DIAGRAMA DE PERSISTÊNCIA AVANÇADO --- */
+        .persist-viz {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 20px;
+            background: #f1f5f9;
+            padding: 50px;
+            border-radius: 20px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .node { padding: 30px; background: white; border: 3px solid var(--navy); border-radius: 12px; font-weight: bold; }
+        .data-stream { color: var(--blue); font-family: monospace; font-weight: bold; }
+
+        /* --- TABELAS TÉCNICAS --- */
+        .tech-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            font-size: 1rem;
+        }
+        .tech-table th { background: #f1f5f9; padding: 20px; text-align: left; border: 1px solid #cbd5e1; font-weight: 900; }
+        .tech-table td { padding: 20px; border: 1px solid #cbd5e1; vertical-align: top; }
+        .tech-table tr:hover { background: #f8fafc; }
+
+        /* --- BLOCOS DE CÓDIGO --- */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 40px;
+            border-radius: 16px;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            border-right: 8px solid var(--amber);
+            line-height: 1.5;
+        }
+        .k { color: #c792ea; font-weight: bold; } 
+        .f { color: #82aaff; } 
+        .s { color: #ecc48d; } 
+        .c { color: #637777; font-style: italic; }
+
+        .deep-note {
+            background: #f0f9ff;
+            border-left: 8px solid var(--blue);
+            padding: 40px;
+            margin: 40px 0;
+            border-radius: 12px;
+        }
+
+        .warning-box {
+            background: #fff5f5;
+            border-left: 8px solid var(--red);
+            padding: 40px;
+            margin: 40px 0;
+            border-radius: 12px;
+        }
+
+        .list-tech { margin: 20px 0; padding-left: 20px; }
+        .list-tech li { margin-bottom: 15px; }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Unidade 4: O Guia Definitivo de Persistência</h1>
+    <p>Manipulação Estruturada de Arquivos, Tratamento Robusto de Exceções e Algoritmos de Solução</p>
+</header>
+
+<div class="container">
+
+    <!-- SEÇÃO 1: FILOSOFIA DA PERSISTÊNCIA -->
+    <section class="card">
+        <h2>💾 1. Persistência de Dados em Larga Escala</h2>
+        <p>A persistência é o mecanismo que permite que o estado de um aplicativo sobreviva ao encerramento do processo. Enquanto a <strong>Memória Volátil (RAM)</strong> é rápida mas temporária, o <strong>Armazenamento Secundário (Disco)</strong> é permanente. Na Unidade 4, aprendemos que um programador profissional não apenas processa dados, ele os governa através do tempo.</p>
+        
+        <div class="persist-viz">
+            <div class="node">ESTADO EM EXECUÇÃO<br><small>Objetos, Variáveis, Listas</small></div>
+            <div class="data-stream">Buffer ➔ Fluxo ➔ I/O</div>
+            <div class="node" style="border-color: var(--blue);">SISTEMA DE ARQUIVOS<br><small>.txt, .csv, .dat</small></div>
+        </div>
+
+        <h3>1.1 O Handle de Arquivo (Ponteiro)</h3>
+        <p>Ao abrir um arquivo em Python, você cria um <i>objeto de arquivo</i>. Este objeto mantém um "ponteiro" que rastreia exatamente onde você está lendo ou escrevendo. Se você ler 10 caracteres, o ponteiro avança 10 posições, esperando a próxima instrução [80-81].</p>
+    </section>
+
+    <!-- SEÇÃO 2: MANIPULAÇÃO AVANÇADA DE ARQUIVOS -->
+    <section class="card">
+        <h2>📂 2. Operações de Entrada e Saída (I/O)</h2>
+        <p>A função <code>open()</code> é o portal de entrada. Mas a segurança do dado depende do <strong>Modo de Abertura</strong> escolhido. O uso incorreto do modo pode causar a perda irreversível de bancos de dados inteiros.</p>
+        
+        <table class="tech-table">
+            <thead>
+                <tr><th>Modo</th><th>Operação Técnica</th><th>Impacto no Arquivo Existente</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>'r'</code></td><td>Read (Somente Leitura)</td><td>Nenhum. Falha se o arquivo não existir.</td></tr>
+                <tr><td><code>'w'</code></td><td>Write (Escrita Destrutiva)</td><td><b>Truncagem Automática:</b> Apaga 100% do conteúdo ao abrir.</td></tr>
+                <tr><td><code>'a'</code></td><td>Append (Anexação)</td><td>Preserva os dados. Posiciona o ponteiro no final do arquivo.</td></tr>
+                <tr><td><code>'r+'</code></td><td>Update (Leitura/Escrita)</td><td>Permite sobrescrever partes específicas sem apagar tudo.</td></tr>
+                <tr><td><code>'b'</code></td><td>Binary (Binário)</td><td>Usado para imagens, áudios ou arquivos executáveis (não-texto).</td></tr>
+            </tbody>
+        </table>
+
+        <h3>2.1 Métodos de Leitura Profunda [82-84]</h3>
+        <ul class="list-tech">
+            <li><strong><code>read()</code>:</strong> Carrega o arquivo INTEIRO para a RAM. Cuidado: arquivos de 10GB podem travar o sistema.</li>
+            <li><strong><code>readline()</code>:</strong> Lê apenas uma linha por vez. Eficiente em termos de memória.</li>
+            <li><strong><code>readlines()</code>:</strong> Transforma cada linha do arquivo em um item de uma lista Python.</li>
+        </ul>
+
+        <pre><code><span class="c"># O Padrão Ouro: Gerenciador de Contexto (with)</span>
+<span class="k">with</span> <span class="f">open</span>(<span class="s">"usuarios.log"</span>, <span class="s">"a"</span>, encoding=<span class="s">"utf-8"</span>) <span class="k">as</span> arquivo:
+    <span class="v">linha</span> = <span class="s">"Registro de acesso: 2023-10-27\n"</span>
+    arquivo.<span class="f">write</span>(<span class="v">linha</span>)
+<span class="c"># Aqui o arquivo é FECHADO automaticamente, mesmo que ocorra um erro!</span></code></pre>
+    </section>
+
+    <!-- SEÇÃO 3: TRATAMENTO DE EXCEÇÕES (RESILIÊNCIA) -->
+    <section class="card" style="border-top-color: var(--red);">
+        <h2>🛡️ 3. Tratamento de Exceções e Robustez</h2>
+        <p>Erros são inevitáveis em sistemas que interagem com o mundo externo. O tratamento de exceções é a prática de prever falhas e fornecer um caminho de recuperação gracioso, em vez de permitir o encerramento abrupto (crash) [85-88].</p>
+        
+        <div class="warning-box">
+            <strong>⚠️ Diferença Crítica: Erro de Sintaxe vs. Exceção</strong><br>
+            Erros de sintaxe são falhas na escrita do código (detectados antes de rodar). Exceções são erros lógicos que ocorrem DURANTE a execução (arquivo não encontrado, divisão por zero, rede fora do ar).
+        </div>
+
+        <h3>3.1 O Bloco Try-Except-Else-Finally</h3>
+        <table class="tech-table">
+            <tr>
+                <th>Try</th>
+                <td>Zona de Risco: Contém o código que pode gerar uma exceção.</td>
+            </tr>
+            <tr>
+                <th>Except</th>
+                <td>Plano de Contingência: Executado apenas se o erro ocorrer.</td>
+            </tr>
+            <tr>
+                <th>Else</th>
+                <td>Caminho de Sucesso: Executado apenas se NÃO houver erro no Try.</td>
+            </tr>
+            <tr>
+                <th>Finally</th>
+                <td>Cláusula de Garantia: Executa SEMPRE. Usado para limpar memória ou fechar conexões.</td>
+            </tr>
+        </table>
+
+        <pre><code><span class="k">try</span>:
+    <span class="v">f</span> = <span class="f">open</span>(<span class="s">"config.json"</span>, <span class="s">"r"</span>)
+<span class="k">except</span> <span class="v">FileNotFoundError</span>:
+    <span class="f">print</span>(<span class="s">"Configuração não encontrada! Usando padrões..."</span>)
+<span class="k">except</span> <span class="v">Exception</span> <span class="k">as</span> <span class="v">e</span>:
+    <span class="f">print</span>(f<span class="s">"Erro inesperado: {e}"</span>)
+<span class="k">else</span>:
+    <span class="f">print</span>(<span class="s">"Configurações carregadas com sucesso."</span>)
+<span class="k">finally</span>:
+    <span class="f">print</span>(<span class="s">"Operação de I/O finalizada."</span>)</code></pre>
+    </section>
+
+    <!-- SEÇÃO 4: ALGORITMOS E SOLUÇÃO DE PROBLEMAS -->
+    <section class="card">
+        <h2>🧩 4. Estratégias de Solução de Problemas</h2>
+        <p>A programação é 10% escrita de código e 90% raciocínio lógico. A Unidade 4 conclui ensinando como decompor problemas complexos em instruções atômicas [90-95].</p>
+        
+        <div class="deep-note">
+            <strong>O Método Científico na Programação:</strong>
+            <ol>
+                <li><strong>Entender:</strong> Quais são as entradas? Qual a saída esperada?</li>
+                <li><strong>Planejar:</strong> Desenhar o algoritmo (fluxograma ou pseudocódigo).</li>
+                <li><strong>Dividir:</strong> Quebrar o problema em funções menores (Modularização da Unidade 3).</li>
+                <li><strong>Implementar:</strong> Escrever o código Python.</li>
+                <li><strong>Validar:</strong> Realizar testes unitários e tratar exceções.</li>
+            </ol>
+        </div>
+
+        <h3>Depuração (Debugging)</h3>
+        <p>O processo de encontrar a causa raiz de um comportamento inesperado. Ferramentas como o <i>Debugger</i> da IDLE ou do VS Code permitem pausar o tempo e inspecionar o valor de cada variável em tempo real, evitando o "chute" na hora de consertar bugs.</p>
+    </section>
+
+</div>
+
+<footer>
+    <p>Manual Supremo Unidade 4 - Linguagem de Programação Python | Felipe Cavalaro - USF 2023</p>
+</footer>
+
+</body>
+</html>

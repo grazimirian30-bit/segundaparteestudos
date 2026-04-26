@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2: Ponteiros e Recursividade - Detalhado</title>
+    <style>
+        :root {
+            --primary: #f43f5e;
+            --bg: #020617;
+            --card-bg: #1e293b;
+            --text: #f1f5f9;
+            --accent: #10b981;
+            --code-bg: #000000;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 900px; margin: auto; padding: 40px 20px; }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 40px;
+            margin-bottom: 50px;
+        }
+
+        h1 { color: var(--primary); font-size: 2.5rem; margin: 0; }
+        .subtitle { color: #94a3b8; font-size: 1.1rem; }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h2 { 
+            color: var(--primary); 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+
+        h3 { color: var(--accent); margin-top: 25px; }
+
+        .icon { width: 32px; height: 32px; fill: var(--primary); }
+
+        /* Diagramas de Memória */
+        .viz-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .memory-row {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .cell {
+            border: 2px solid var(--primary);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 120px;
+            background: rgba(244, 63, 94, 0.05);
+        }
+
+        .addr { font-family: monospace; font-size: 0.8rem; color: #94a3b8; display: block; }
+        .val { font-size: 1.3rem; font-weight: bold; color: white; }
+        .label { font-size: 0.85rem; color: var(--primary); margin-top: 5px; }
+
+        pre {
+            background: var(--code-bg);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border-left: 4px solid var(--primary);
+            font-family: 'Consolas', monospace;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 12px;
+            border: 1px solid #334155;
+            text-align: left;
+        }
+
+        .comparison-table th { background: #0f172a; color: var(--primary); }
+
+        .badge {
+            background: var(--primary);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Módulo 2: Ponteiros e Recursividade</h1>
+        <p class="subtitle">Guia Técnico Detalhado para Engenharia de Computação</p>
+    </header>
+
+    <!-- 1. PONTEIROS -->
+    <div class="section">
+        <h2>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v16h10V4H7zm2 2h6v2H9V6zm0 4h6v2H9v-2zm0 4h3v2H9v-2z"/></svg>
+            1. Conceitos de Ponteiros
+        </h2>
+        <p>Um <b>Ponteiro</b> é uma variável que armazena o endereço de memória de outra variável. Em C, isso permite manipular dados diretamente no hardware.</p>
+        
+        <h3>Operadores Fundamentais</h3>
+        <ul>
+            <li><span class="badge">&</span> <b>Endereço:</b> Retorna o local da memória onde a variável está guardada.</li>
+            <li><span class="badge">*</span> <b>Conteúdo:</b> Acessa o valor que está no endereço apontado (Deresferência).</li>
+        </ul>
+
+        <div class="viz-container">
+            <p><strong>Visualização de Apontamento:</strong></p>
+            <div class="memory-row">
+                <div class="cell">
+                    <span class="addr">0xFF01</span>
+                    <span class="val">42</span>
+                    <div class="label">Variável 'num'</div>
+                </div>
+                <div style="font-size: 2rem; color: var(--primary);">⬅</div>
+                <div class="cell" style="border-color: var(--accent);">
+                    <span class="addr">0xAA05</span>
+                    <span class="val">0xFF01</span>
+                    <div class="label" style="color: var(--accent);">Ponteiro '*p'</div>
+                </div>
+            </div>
+        </div>
+        
+        <pre>
+int num = 42;
+int *p = &num; // p recebe o endereço de num
+printf("%d", *p); // Saída: 42 (valor de num)</pre>
+    </div>
+
+    <!-- 2. ARITMÉTICA E PARÂMETROS -->
+    <div class="section">
+        <h2>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-2h2v2zm0-4H7v-2h2v2zm0-4H7V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2zm4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/></svg>
+            2. Passagem de Parâmetros
+        </h2>
+        <p>A forma como passamos dados para funções define se o valor original será alterado ou não.</p>
+        
+        <table class="comparison-table">
+            <tr>
+                <th>Por Valor</th>
+                <th>Por Referência (Ponteiro)</th>
+            </tr>
+            <tr>
+                <td>Cria uma cópia isolada na memória.</td>
+                <td>Passa o endereço da variável real.</td>
+            </tr>
+            <tr>
+                <td>Alterações <b>NÃO</b> afetam o original.</td>
+                <td>Alterações <b>AFETAM</b> o original.</td>
+            </tr>
+        </table>
+
+        <h3>Aritmética de Ponteiros</h3>
+        <p>Incrementar um ponteiro (<code>p++</code>) faz com que ele aponte para o <b>próximo elemento</b> do tipo declarado:</p>
+        <ul>
+            <li><code>char*</code>: pula 1 byte</li>
+            <li><code>int*</code>: pula 4 bytes</li>
+            <li><code>double*</code>: pula 8 bytes</li>
+        </ul>
+    </div>
+
+    <!-- 3. RECURSIVIDADE -->
+    <div class="section">
+        <h2>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm-6.24 3.74L4.3 6.28C3.46 7.74 3 9.2 3 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8z"/></svg>
+            3. Recursividade Avançada
+        </h2>
+        <p>Uma função é recursiva quando resolve um problema chamando a si mesma com uma versão menor do mesmo problema.</p>
+
+        <div style="border-left: 4px solid var(--accent); padding-left: 15px; margin: 20px 0;">
+            <strong>Os Dois Pilares:</strong><br>
+            1. <b>Caso Base:</b> Onde a recursão para (evita o loop infinito).<br>
+            2. <b>Passo Recursivo:</b> A chamada da função para se aproximar do Caso Base.
+        </div>
+
+        <h3>Exemplo Visual: Fatorial de 3</h3>
+        <div class="viz-container" style="align-items: flex-start;">
+            <div style="margin-left: 0px;">fatorial(3) retorna 3 * <b>fatorial(2)</b></div>
+            <div style="margin-left: 20px;">fatorial(2) retorna 2 * <b>fatorial(1)</b></div>
+            <div style="margin-left: 40px;">fatorial(1) retorna 1 * <b>fatorial(0)</b></div>
+            <div style="margin-left: 60px; color: var(--accent);">fatorial(0) retorna <b>1</b> (Caso Base!)</div>
+        </div>
+
+        <pre>
+int fatorial(int n) {
+    if (n == 0) return 1; // Base
+    return n * fatorial(n - 1); // Recursão
+}</pre>
+    </div>
+
+    <!-- 4. PONTEIRO PARA PONTEIRO -->
+    <div class="section">
+        <h2>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+            4. Ponteiro de Segundo Nível
+        </h2>
+        <p>Um ponteiro para ponteiro guarda o endereço de outro ponteiro. É declarado com dois asteriscos (<code>**</code>).</p>
+        
+        <div class="viz-container">
+            <div class="memory-row" style="gap: 10px;">
+                <div class="cell">Var: 10</div>
+                <span>⬅</span>
+                <div class="cell">*p</div>
+                <span>⬅</span>
+                <div class="cell">**pp</div>
+            </div>
+        </div>
+        <p>Muito utilizado em <b>Matrizes Dinâmicas</b> e quando precisamos que uma função altere o endereço para onde um ponteiro aponta.</p>
+    </div>
+
+    <button onclick="window.print()" style="width:100%; padding:15px; background:var(--primary); color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">🖨️ Salvar como PDF para Estudo</button>
+
+</div>
+
+</body>
+</html>

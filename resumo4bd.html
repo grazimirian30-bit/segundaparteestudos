@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Alta Performance e Segurança - Módulo 4</title>
+    <style>
+        :root {
+            --primary-deep: #7c2d12;
+            --primary: #c2410c;
+            --secondary: #f97316;
+            --code-bg: #0c0a09;
+            --code-text: #f5f5f4;
+            --text-dark: #1c1917;
+            --text-light: #57534e;
+            --bg-page: #fafaf9;
+            --accent-green: #065f46;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-deep), var(--secondary));
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .container { max-width: 1200px; margin: -80px auto 80px; padding: 0 20px; }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border-left: 10px solid var(--primary);
+        }
+
+        h2 { color: var(--primary-deep); font-size: 2rem; border-bottom: 3px solid #ffedd5; padding-bottom: 15px; }
+        h3 { color: var(--primary); margin-top: 2.5rem; font-size: 1.4rem; }
+
+        /* --- INFOGRÁFICO DE ÍNDICE --- */
+        .index-box {
+            background: #fff;
+            border: 2px solid var(--border);
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .leaf-row { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+        .page-node {
+            background: #ffedd5;
+            border: 2px solid var(--primary);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            width: 140px;
+        }
+
+        /* --- TABELA COMPARATIVA --- */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 0.95rem;
+        }
+        .comparison-table th { background: #fecaca; color: var(--primary-deep); padding: 15px; border: 1px solid #fdba74; }
+        .comparison-table td { padding: 15px; border: 1px solid #fed7aa; }
+
+        /* --- CODE --- */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 30px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            border-right: 5px solid var(--primary);
+        }
+        .k { color: #fb923c; font-weight: bold; } /* keyword */
+        .c { color: #78716c; } /* comment */
+
+        .warning-box {
+            background: #fef2f2;
+            border: 2px solid #fee2e2;
+            border-left: 10px solid #ef4444;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+
+        .nosql-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        .nosql-card {
+            background: #ecfdf5;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #d1fae5;
+        }
+        .nosql-card h4 { color: var(--accent-green); margin-top: 0; }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Módulo 4: Otimização Extrema e Segurança</h1>
+    <p>Índices Físicos, Lógica de Gatilhos, Gestão de Identidade e NoSQL</p>
+</header>
+
+<div class="container">
+
+    <!-- SEÇÃO 1: ÍNDICES PROFUNDOS -->
+    <section class="card">
+        <h2>🚀 1. Índices: A Engenharia da Velocidade</h2>
+        <p>Um índice no SQL Server é uma estrutura em árvore (B-Tree) que organiza ponteiros para dados físicos. Sem índices, o banco realiza um <strong>Table Scan</strong> (lê página por página do disco), o que é fatal para a performance.</p>
+        
+        <h3>1.1 Índice Clusterizado (Clustered Index)</h3>
+        <p>Este índice <strong>é</strong> a própria tabela. Ele reorganiza os dados fisicamente no disco com base na chave escolhida.</p>
+        <ul>
+            <li><strong>Unicidade:</strong> Apenas um por tabela.</li>
+            <li><strong>Folhas:</strong> No nível folha deste índice estão os dados reais da linha.</li>
+            <li><strong>Recomendação:</strong> Use sempre em colunas de identidade ou datas sequenciais.</li>
+        </ul>
+
+        <h3>1.2 Índice Não-Clusterizado (Non-Clustered)</h3>
+        <p>Funciona como o índice remissivo de um livro técnico. Ele contém a chave do índice e um <strong>ponteiro</strong> (RID ou chave do cluster) para onde o dado está.</p>
+        
+        <div class="index-box">
+            <strong>Arquitetura de Busca B-Tree</strong>
+            <div style="margin: 20px auto; width: 60px; height: 40px; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; border-radius: 4px;">RAIZ</div>
+            <div style="display:flex; justify-content: center; gap: 40px;">
+                <div style="width: 2px; height: 30px; background: #000; transform: rotate(30deg);"></div>
+                <div style="width: 2px; height: 30px; background: #000; transform: rotate(-30deg);"></div>
+            </div>
+            <div class="leaf-row">
+                <div class="page-node">Página de Dados A<br><small>IDs 1 a 100</small></div>
+                <div class="page-node">Página de Dados B<br><small>IDs 101 a 200</small></div>
+            </div>
+        </div>
+
+        <pre><code><span class="c">-- Criando índice para busca rápida por e-mail</span>
+<span class="k">CREATE NONCLUSTERED INDEX</span> idx_User_Email 
+<span class="k">ON</span> Usuarios(Email) 
+<span class="k">WITH</span> (FILLFACTOR = 80); <span class="c">-- Deixa 20% de espaço livre para novos dados</span></code></pre>
+    </section>
+
+    <!-- SEÇÃO 2: GATILHOS (TRIGGERS) EM DETALHE -->
+    <section class="card">
+        <h2>⚡ 2. Gatilhos: A Automação Invisível</h2>
+        <p>Os gatilhos (Triggers) são disparados pelo SGBD em resposta a eventos de DML. Eles são fundamentais para manter a <strong>Integridade Referencial Complexa</strong> que chaves estrangeiras simples não conseguem resolver.</p>
+
+        <h3>2.1 As Tabelas Mágicas: INSERTED e DELETED</h3>
+        <p>Durante a execução de um gatilho, o SQL Server cria duas tabelas temporárias na memória (RAM):</p>
+        <table class="comparison-table">
+            <thead>
+                <tr><th>Operação</th><th>Tabela 'Inserted'</th><th>Tabela 'Deleted'</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>INSERT</strong></td><td>Contém as novas linhas.</td><td>Vazia.</td></tr>
+                <tr><td><strong>UPDATE</strong></td><td>Contém os novos valores.</td><td>Contém os valores antigos (pré-update).</td></tr>
+                <tr><td><strong>DELETE</strong></td><td>Vazia.</td><td>Contém as linhas removidas.</td></tr>
+            </tbody>
+        </table>
+
+        <pre><code><span class="k">CREATE TRIGGER</span> trg_BloqueiaSalarioNegativo 
+<span class="k">ON</span> Funcionarios 
+<span class="k">FOR INSERT, UPDATE</span>
+<span class="k">AS</span>
+<span class="k">BEGIN</span>
+    <span class="k">IF EXISTS</span> (<span class="k">SELECT</span> 1 <span class="k">FROM</span> inserted <span class="k">WHERE</span> Salario < 0)
+    <span class="k">BEGIN</span>
+        <span class="k">RAISERROR</span> (<span class="string">'Salário não pode ser negativo!'</span>, 16, 1);
+        <span class="k">ROLLBACK TRANSACTION</span>; <span class="c">-- Cancela a operação que disparou o trigger</span>
+    <span class="k">END</span>
+<span class="k">END</span>;</code></pre>
+    </section>
+
+    <!-- SEÇÃO 3: SEGURANÇA E PRIVILÉGIOS -->
+    <section class="card">
+        <h2>🔐 3. Segurança: O Modelo de Menor Privilégio</h2>
+        <p>A segurança em banco de dados segue a regra de que o usuário deve ter apenas o acesso mínimo necessário para sua função [87-89].</p>
+        
+        <div class="warning-box">
+            <strong>Diferença Crítica:</strong>
+            <ul>
+                <li><strong>REVOKE:</strong> Remove uma permissão concedida. Se o usuário herdar a permissão de um grupo, ele ainda terá acesso.</li>
+                <li><strong>DENY:</strong> Bloqueia o acesso. Mesmo que ele herde permissão de outro grupo, o DENY vence sempre.</li>
+            </ul>
+        </div>
+
+        <pre><code><span class="c">-- Exemplo de gestão de privilégios</span>
+<span class="k">GRANT SELECT, INSERT ON</span> Clientes <span class="k">TO</span> SetorVendas;
+<span class="k">DENY DELETE ON</span> Clientes <span class="k">TO</span> SetorVendas; <span class="c">-- Vendedores nunca apagam clientes</span></code></pre>
+    </section>
+
+    <!-- SEÇÃO 4: O UNIVERSO NOSQL -->
+    <section class="card">
+        <h2>🌐 4. NoSQL: Além das Tabelas Relacionais</h2>
+        <p>Bancos NoSQL surgiram para tratar os 3 Vs do Big Data: **Volume, Velocidade e Variedade** [91-95].</p>
+
+        <div class="nosql-grid">
+            <div class="nosql-card">
+                <h4>📄 Documento (JSON)</h4>
+                <p>Dados flexíveis. Ótimo para catálogos de produtos e perfis de usuários.</p>
+                <strong>Ex: MongoDB, CouchDB.</strong>
+            </div>
+            <div class="nosql-card">
+                <h4>🔑 Chave-Valor</h4>
+                <p>Extremamente rápido. Usado para sessões de login e carrinhos de compra.</p>
+                <strong>Ex: Redis, DynamoDB.</strong>
+            </div>
+            <div class="nosql-card" style="background:#eff6ff; border-color:#dbeafe">
+                <h4>🕸️ Grafos</h4>
+                <p>Focado em relacionamentos complexos. Redes sociais e detecção de fraude.</p>
+                <strong>Ex: Neo4j.</strong>
+            </div>
+            <div class="nosql-card" style="background:#fefce8; border-color:#fef08a">
+                <h4>🏛️ Colunar</h4>
+                <p>Otimizado para consultas analíticas gigantescas (BI).</p>
+                <strong>Ex: Cassandra, HBase.</strong>
+            </div>
+        </div>
+
+        <h3>O Teorema CAP</h3>
+        <p>Diz que um sistema distribuído só pode garantir 2 de 3 propriedades ao mesmo tempo:</p>
+        <ul>
+            <li><strong>C (Consistência):</strong> Todos os nós veem os mesmos dados ao mesmo tempo.</li>
+            <li><strong>A (Disponibilidade):</strong> O sistema sempre responde, mesmo com falhas.</li>
+            <li><strong>P (Tolerância a Partição):</strong> O sistema continua operando mesmo se a rede falhar entre os nós.</li>
+        </ul>
+    </section>
+
+</div>
+
+<footer>
+    <p>Manual Enciclopédico Unidade 4 - Performance e Segurança de Dados | 2023</p>
+</footer>
+
+</body>
+</html>

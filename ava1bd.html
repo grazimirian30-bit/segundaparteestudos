@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Atividade Banco de Dados - Graziana Mirian</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; padding: 20px; line-height: 1.6; color: #333; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; text-align: center; }
+        .info { background: #e8f4fd; padding: 15px; border-radius: 8px; margin-bottom: 30px; font-size: 0.9em; border: 1px solid #b8daff; }
+        
+        .pergunta { margin-bottom: 50px; border-bottom: 1px solid #eee; padding-bottom: 30px; }
+        .texto-questao { font-weight: bold; color: #2c3e50; margin-bottom: 15px; display: block; }
+        
+        /* Estilo da Imagem da Questão 1 */
+        .imagem-questao { text-align: center; margin: 20px 0; }
+        .imagem-questao img { max-width: 350px; border: 2px solid #ddd; border-radius: 8px; }
+
+        .opcoes-container { margin: 15px 0; }
+        .opcao { padding: 12px; border: 1px solid #ddd; margin-bottom: 8px; border-radius: 5px; font-size: 0.95em; background: #fff; }
+        
+        .selecionada { border-color: #3498db; background-color: #f1f7ff; font-weight: bold; }
+        .correta-label { color: #28a745; font-weight: bold; margin-left: 10px; font-size: 0.85em; }
+        .errada-label { color: #dc3545; font-weight: bold; margin-left: 10px; font-size: 0.85em; }
+        
+        .gabarito-bloco { margin-top: 20px; padding: 20px; background-color: #e6ffed; border-left: 6px solid #28a745; border-radius: 4px; }
+        .gabarito-titulo { font-weight: bold; color: #1e7e34; display: block; margin-bottom: 5px; font-size: 1.1em; }
+        .gabarito-expl { color: #2d5736; font-size: 0.95em; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="info">
+        <strong>Graziana Mirian de Jesus</strong><br>
+        Atividade Banco de Dados - Revisão Técnica<br>
+        Foco: Modelagem e MER
+    </div>
+
+    <h1>Modelagem de Banco de Dados</h1>
+
+    <!-- QUESTÃO 1 COM IMAGEM -->
+    <div class="pergunta">
+        <span class="texto-questao">Pergunta 1</span>
+        <p>Analise a imagem abaixo:</p>
+        
+        <div class="imagem-questao">
+            <!-- Link da imagem do meme que você enviou -->
+            <img src="image_questiondb(1).png" alt="Ilustração da Pergunta 1">
+        </div>
+
+        <p>Assinale a alternativa que apresente o modelo de banco de dados representado na imagem.</p>
+        
+        <div class="opcoes-container">
+            <div class="opcao">Banco de dados interligado</div>
+            <div class="opcao">Banco de dados relacional. <span class="correta-label">✓ Resposta Correta</span></div>
+            <div class="opcao">Banco de dados em rede.</div>
+            <div class="opcao selecionada">Banco de dados hierárquico.</div> 
+                
+            <div class="opcao">Banco de dados orientado a objetos.</div>
+        </div>
+
+        <div class="gabarito-bloco">
+            <span class="gabarito-titulo">Gabarito Explicado</span>
+            <div class="gabarito-expl">
+                A charge faz uma crítica social que, no contexto de Banco de Dados, ilustra o <strong>Modelo Relacional</strong>. <br>
+                <strong>Por que não é Hierárquico?</strong> No modelo hierárquico, os dados são organizados como uma árvore (pai e filho). Se o "líder" (pai) mudar, a estrutura é fixa. O Modelo Relacional, proposto por Edgar F. Codd e Peter Chen, foca nas relações lógicas, permitindo que os dados (ou as pessoas na charge) interajam de forma dinâmica através de chaves, representando melhor sistemas complexos onde a mudança depende da relação entre as partes.
+            </div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 2 -->
+    <div class="pergunta">
+        <span class="texto-questao">Pergunta 2: Especialização e Generalização</span>
+        <p>Sobre especialização total, disjuntiva, parcial e compartilhada, analise as afirmações:</p>
+        
+        <div class="opcoes-container">
+            <div class="opcao selecionada">I, II, III e IV, apenas. <span class="correta-label">✓</span></div>
+            <div class="opcao">II, III e IV, apenas.</div>
+            <div class="opcao">I e III, apenas.</div>
+        </div>
+
+        <div class="gabarito-bloco">
+            <span class="gabarito-titulo">Gabarito Explicado</span>
+            <div class="gabarito-expl">
+                Todas as afirmações são verdadeiras. Elas definem as restrições de integridade na especialização: 
+                <strong>Total</strong> (obrigatoriedade), <strong>Disjuntiva</strong> (exclusividade), <strong>Parcial</strong> (opcionalidade) e <strong>Compartilhada</strong> (múltipla herança).
+            </div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 3 -->
+    <div class="pergunta">
+        <span class="texto-questao">Pergunta 3: Modelo Entidade-Relacionamento (MER)</span>
+        <p>Sobre a representação de Professores e Atributos no MER:</p>
+        
+        <div class="opcoes-container">
+            <div class="opcao">I e II, apenas.</div>
+            <div class="opcao">I, apenas.</div>
+            <div class="opcao selecionada">I e IV, apenas. <span class="correta-label">✓</span></div>
+        </div>
+
+        <div class="gabarito-bloco">
+            <span class="gabarito-titulo">Gabarito Explicado</span>
+            <div class="gabarito-expl">
+                A afirmação <strong>I</strong> está correta (Professor é entidade). A <strong>IV</strong> está correta porque sem um atributo determinante (Primary Key), não podemos distinguir ocorrências da entidade. A II está errada pois o nome é um atributo, não uma entidade.
+            </div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 4 -->
+    <div class="pergunta">
+        <span class="texto-questao">Pergunta 4: Processo de Abstração</span>
+        <p>Analise a relação entre o modelo físico e o modelo lógico:</p>
+        
+        <div class="opcoes-container">
+            <div class="opcao">As asserções I e II são proposições falsas.</div>
+            <div class="opcao selecionada">A asserção I é uma proposição verdadeira, e a II é uma proposição falsa. <span class="correta-label">✓</span></div>
+        </div>
+
+        <div class="gabarito-bloco">
+            <span class="gabarito-titulo">Gabarito Explicado</span>
+            <div class="gabarito-expl">
+                O modelo lógico não é o <strong>único</strong> a descrever o funcionamento; ele foca na estrutura de tabelas. O modelo conceitual descreve o negócio e o físico a implementação no disco. Por isso, a II é falsa.
+            </div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 5 -->
+    <div class="pergunta">
+        <span class="texto-questao">Pergunta 5: Conceito de Campo</span>
+        <p>Escolha a alternativa cujos valores pertencem ao mesmo campo:</p>
+        
+        <div class="opcoes-container">
+            <div class="opcao">4, 8, 10/05/1900.</div>
+            <div class="opcao selecionada">João, Pedro e Maria. <span class="correta-label">✓</span></div>
+            <div class="opcao">03/06/1950, Silvio e João.</div>
+        </div>
+
+        <div class="gabarito-bloco">
+            <span class="gabarito-titulo">Gabarito Explicado</span>
+            <div class="gabarito-expl">
+                Um campo define um domínio atômico de dados. Nomes (João, Pedro, Maria) compartilham o mesmo tipo (String/Texto) e significado, sendo a única lista homogênea.
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

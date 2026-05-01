@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Atividade Quinzena 1 - Completa</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; padding: 20px; line-height: 1.6; color: #333; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        h1 { color: #1a73e8; border-bottom: 3px solid #1a73e8; padding-bottom: 10px; }
+        .info { background: #e8f0fe; padding: 15px; border-radius: 8px; margin-bottom: 30px; font-size: 0.9em; }
+        .pergunta { margin-bottom: 50px; border-bottom: 1px solid #eee; padding-bottom: 30px; }
+        .id-questao { color: #888; font-size: 0.8em; display: block; margin-bottom: 10px; }
+        .texto-questao { font-weight: 500; margin-bottom: 15px; display: block; }
+        .codigo { background: #202124; color: #f1f3f4; padding: 20px; border-radius: 6px; font-family: 'Consolas', monospace; margin: 15px 0; display: block; white-space: pre-wrap; }
+        .opcoes-container { margin: 15px 0; }
+        .opcao { padding: 10px; border: 1px solid #ddd; margin-bottom: 8px; border-radius: 5px; font-size: 0.95em; }
+        .selecionada { border-color: #1a73e8; background-color: #f1f7ff; position: relative; }
+        .selecionada::after { content: " (Selecionada)"; font-weight: bold; color: #1a73e8; font-size: 0.8em; }
+        
+        /* Estilo do Gabarito Explicado */
+        .gabarito-bloco { margin-top: 20px; padding: 20px; background-color: #e6ffed; border-left: 6px solid #28a745; border-radius: 4px; }
+        .gabarito-titulo { font-weight: bold; color: #1e7e34; display: block; margin-bottom: 5px; font-size: 1.1em; }
+        .gabarito-expl { color: #2d5736; font-size: 0.95em; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="info">
+        <strong>Graziana Mirian de Jesus</strong><br>
+        Atividade Quinzena 1 - Objetiva (Não Pontuada) - Resultados<br>
+        Tentativa 1 de 1 | Escrito 17 de abril de 2026
+    </div>
+
+    <!-- QUESTÃO 1 -->
+    <div class="pergunta">
+        <span class="id-questao">Pergunta 1 | U012025.2CONT-06D</span>
+        <span class="texto-questao">Considere o trecho de código da linguagem C abaixo:</span>
+        
+        <code class="codigo">
+int Vet, i;
+for(i=0; i < 4; i++){
+    Vet[i] = i * 3;
+}
+for(i=0; i < 4; i++){
+    printf("%d ", Vet[i]);
+}</code>
+
+        <span class="texto-questao">Dessa forma, com relação ao código apresentado analise as seguintes afirmações:</span>
+        <p>I. Os valores que serão exibidos na tela serão 0, 3, 6 e 9, respectivamente.<br>
+        II. O vetor (Vet) possui quatro posições, sendo a última posição referenciada com o índice de valor 4.<br>
+        III. No primeiro comando de repetição são inseridos os valores no vetor e no segundo comando de repetição são apresentados os valores na tela.<br>
+        IV. A variável i que representa o índice do vetor deveria iniciar do valor 1.</p>
+        
+        <div class="opcoes-container">
+            <div class="opcao selecionada">I e III, apenas.</div>
+            <div class="opcao">I e II, apenas.</div>
+            <div class="opcao">II e IV, apenas.</div>
+            <div class="opcao">I, III e IV, apenas.</div>
+            <div class="opcao">I, II e III, apenas.</div>
+        </div>
+
+        <div class="gabarito-bloco">
+            <span class="gabarito-titulo">Gabarito Explicado</span>
+            <div class="gabarito-expl">
+                <strong>Análise:</strong><br>
+                - <strong>I (Correta):</strong> No loop, <code>i</code> assume 0, 1, 2, 3. Logo, <code>0*3=0</code>, <code>1*3=3</code>, <code>2*3=6</code> e <code>3*3=9</code>.<br>
+                - <strong>II (Incorreta):</strong> Se o vetor tem 4 posições, os índices são 0, 1, 2 e 3. O índice 4 é inválido.<br>
+                - <strong>III (Correta):</strong> O primeiro <code>for</code> atribui valores (<code>Vet[i] = ...</code>) e o segundo exibe (<code>printf</code>).<br>
+                - <strong>IV (Incorreta):</strong> Índices em C <strong>sempre</strong> começam em 0. Começar em 1 deixaria a primeira posição vazia/lixo.
+            </div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 2 -->
+    <div class="pergunta">
+        <span class="id-questao">Pergunta 2 | U012025.2CONT-18M</span>
+        <span class="texto-questao">Comandos como printf, scanf e outros são funções pertencentes a bibliotecas padrão da linguagem C, permitindo o reuso de código já desenvolvido. Para utilizar essas funções em um programa, é necessário incluir as bibliotecas adequadas por meio do comando ____________.</span>
+        
+        <div class="opcoes-container">
+            <div class="opcao selecionada">#include.</div>
+            <div class="opcao">#define.</div>
+            <div class="opcao">#call.</div>
+            <div class="opcao">#const.</div>
+            <div class="opcao">#void.</div>
+        </div>
+
+        <div class="gabarito-bloco">
+            <span class="gabarito-titulo">Gabarito Explicado</span>
+            <div class="gabarito-expl">
+                O comando <code>#include</code> é uma diretiva de pré-compilação que "inclui" arquivos de cabeçalho (como <code>stdio.h</code>) que contêm as definições das funções de entrada e saída.
+            </div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 3 -->
+    <div class="pergunta">
+        <span class="id-questao">Pergunta 3 | U012025.2PC-01M</span>
+        <span class="texto-questao">As funções em C são blocos de código reutilizáveis que permitem dividir um programa em partes menores e mais organizadas. Elas contribuem para a modularidade, clareza e manutenção do código. Com base no conceito de funções em C, assinale a alternativa correta.</span>
+        
+        <div class="opcoes-container">
+            <div class="opcao selecionada">Funções em C permitem agrupar instruções em um bloco identificado por um nome, podendo receber parâmetros e retornar valores.</div>
+            <div class="opcao">Uma função em C é apenas uma estrutura de repetição usada para executar comandos várias vezes.</div>
+            <div class="opcao">Em C, funções são exclusivamente utilizadas para manipulação de variáveis globais.</div>
+            <div class="opcao">As funções em C são criadas apenas pela linguagem e não podem ser definidas pelo programador.</div>
+            <div class="opcao">Funções em C são trechos de código sem parâmetros e sem possibilidade de retorno de valores.</div>
+        </div>
+
+        <div class="gabarito-bloco">
+            <span class="gabarito-titulo">Gabarito Explicado</span>
+            <div class="gabarito-expl">
+                <strong>Conceito de Modularização:</strong> Uma função é definida por um tipo de retorno, um nome, e opcionalmente uma lista de parâmetros. Ela permite executar um conjunto de instruções isoladas sempre que o nome dela for chamado.
+            </div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 4 -->
+    <div class="pergunta">
+        <span class="id-questao">Pergunta 4 | U012025.2CONT-13M</span>
+        <span class="texto-questao">Em muitas aplicações computacionais, é necessário lidar com grandes volumes de dados organizados de maneira eficiente... (Texto do enunciado omitido aqui por brevidade no código, mas incluído nas afirmações abaixo). Com base nos conceitos estudados, analise as afirmativas a seguir:</span>
+        
+        <p>( ) Um vetor pode armazenar valores de diferentes tipos de dados dentro da mesma estrutura, sem o uso de Struct’s, desde que seja declarado corretamente.<br>
+           ( ) O tamanho de um vetor precisa ser definido no momento de sua declaração, caso contrário, ocorrerá um erro de compilação.<br>
+           ( ) O acesso a elementos de um vetor é feito utilizando colchetes ([]), indicando a posição do elemento desejado.<br>
+           ( ) O último índice válido de um vetor de tamanho N é representado pelo valor N.<br>
+           ( ) O uso de laços de repetição é uma abordagem eficiente para percorrer e manipular todos os elementos de um vetor.</p>
+
+        <div class="opcoes-container">
+            <div class="opcao selecionada">F, V, V, F, V.</div>
+            <div class="opcao">F, V, V, V, F.</div>
+            <div class="opcao">F, F, V, V, V.</div>
+            <div class="opcao">F, V, F, V, V.</div>
+            <div class="opcao">V, V, F, F, V.</div>
+        </div>
+
+        <div class="gabarito-bloco">
+            <span class="gabarito-titulo">Gabarito Explicado</span>
+            <div class="gabarito-expl">
+                1. <strong>F:</strong> Vetores em C são homogêneos (apenas um tipo).<br>
+                2. <strong>V:</strong> C exige tamanho estático na declaração (ex: <code>Vet[10]</code>).<br>
+                3. <strong>V:</strong> Colchetes são o operador de acesso.<br>
+                4. <strong>F:</strong> O último índice é <code>N-1</code>.<br>
+                5. <strong>V:</strong> O <code>for</code> é a forma padrão de percorrer arrays.
+            </div>
+        </div>
+    </div>
+
+    <!-- QUESTÃO 5 -->
+    <div class="pergunta">
+        <span class="id-questao">Pergunta 5 | U012025.2CONT-14M</span>
+        <span class="texto-questao">No contexto da linguagem C, os comandos de entrada e saída são essenciais... Com base nesses conceitos, analise as seguintes afirmativas:</span>
+        
+        <p>( ) O comando scanf deve sempre ter & junto do nome da variável, para representar o endereço da mesma.<br>
+           ( ) O printf, além de imprimir variáveis, pode imprimir textos.<br>
+           ( ) O comando scanf deve sempre ter um * junto do nome da variável.<br>
+           ( ) Os comandos if e else podem ser considerados também comandos de repetição.<br>
+           ( ) O comando switch é uma alternativa ao if-else para testar múltiplas condições sobre uma mesma variável.</p>
+
+        <div class="opcoes-container">
+            <div class="opcao selecionada">V, V, F, F, V.</div>
+            <div class="opcao">F, F, V, V, V.</div>
+            <div class="opcao">V, F, F, F, V.</div>
+            <div class="opcao">V, F, V, F, V.</div>
+            <div class="opcao">F, V, V, F, F.</div>
+        </div>
+
+        <div class="gabarito-bloco">
+            <span class="gabarito-titulo">Gabarito Explicado</span>
+            <div class="gabarito-expl">
+                1. <strong>V:</strong> O <code>&</code> (e-comercial) é o operador de endereço necessário para o <code>scanf</code>.<br>
+                2. <strong>V:</strong> <code>printf("Texto %d", var);</code> faz ambos.<br>
+                3. <strong>F:</strong> O <code>*</code> é usado para ponteiros, não é obrigatório no <code>scanf</code> comum.<br>
+                4. <strong>F:</strong> São comandos de <strong>seleção/decisão</strong>, não repetição.<br>
+                5. <strong>V:</strong> O <code>switch</code> organiza múltiplos casos de forma mais limpa que vários <code>if/else</code>.
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Questões Python Resolvidas</title>
+<style>
+body {{
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background: #f5f5f5;
+    line-height: 1.7;
+}}
+.container {{
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+}}
+h1 {{
+    color: #222;
+}}
+h2 {{
+    color: #0b57d0;
+    margin-top: 50px;
+}}
+img {{
+    max-width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin: 20px 0;
+}}
+.box {{
+    background: #eef5ff;
+    padding: 15px;
+    border-left: 5px solid #0b57d0;
+    border-radius: 8px;
+}}
+.correct {{
+    color: green;
+    font-weight: bold;
+}}
+.code {{
+    background: #272822;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: monospace;
+}}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>Questões de Python Resolvidas</h1>
+
+<h2>Pergunta 1</h2>
+
+<p>
+Considere o programa em Python para calcular o fatorial de um número inteiro não negativo.
+O fatorial de um número é o produto de todos os números inteiros positivos menores ou iguais a ele.
+Neste contexto, analise o seguinte código em Python:
+</p>
+
+<img src="image_questiondb(28).png">
+
+<p>Com base no código acima, avalie as afirmações a seguir:</p>
+
+<ul>
+<li>( ) O código coleta do usuário um número inteiro.</li>
+<li>( ) A variável resultado é inicializada com o valor 0.</li>
+<li>( ) O laço for itera sobre os números no intervalo de 1 até o número fornecido pelo usuário.</li>
+<li>( ) O operador *= é usado para atribuir o valor atual da variável i.</li>
+<li>( ) O código calculará corretamente o fatorial do número fornecido pelo usuário.</li>
+</ul>
+
+<div class="box">
+<p><strong>Resposta correta:</strong> <span class="correct">V, F, V, F, V</span></p>
+
+<p><strong>Explicação:</strong></p>
+
+<ul>
+<li>O código usa <code>input()</code> para receber um valor do usuário.</li>
+<li>A variável <code>resultado</code> começa com 1 e não com 0.</li>
+<li>O <code>for</code> percorre os números de 1 até o número digitado.</li>
+<li>O operador <code>*=</code> multiplica e atualiza o valor da variável.</li>
+<li>O cálculo do fatorial está correto.</li>
+</ul>
+
+<div class="code">
+resultado *= i
+</div>
+</div>
+
+<h2>Pergunta 2</h2>
+
+<p>
+Foi solicitado a sua equipe um projeto de desenvolvimento de um jogo em Python.
+O jogo envolve a criação de um tabuleiro onde os jogadores podem mover peças em diferentes posições.
+Para representar o tabuleiro, você está utilizando uma matriz.
+Analise o seguinte código em Python:
+</p>
+
+<img src="image_questiondb(30).png">
+
+<p>Com base no código acima, avalie as afirmações a seguir:</p>
+
+<ul>
+<li>( ) O código cria uma matriz 3x3 representando o tabuleiro do jogo.</li>
+<li>( ) Cada elemento da matriz representa uma posição no tabuleiro.</li>
+<li>( ) A matriz tabuleiro é uma lista que contém outras listas.</li>
+<li>( ) A quantidade de linhas e colunas da matriz tabuleiro é igual a 3.</li>
+<li>( ) A matriz tabuleiro está sendo representada por meio de três tuplas.</li>
+</ul>
+
+<div class="box">
+<p><strong>Resposta correta:</strong> <span class="correct">V, V, V, V, F</span></p>
+
+<p><strong>Explicação:</strong></p>
+
+<ul>
+<li>O tabuleiro possui 3 linhas e 3 colunas.</li>
+<li>Cada posição guarda "X" ou "O".</li>
+<li>A estrutura é formada por listas dentro de outra lista.</li>
+<li>A matriz realmente é 3x3.</li>
+<li>Não são tuplas, porque usa colchetes [] e não parênteses ().</li>
+</ul>
+</div>
+
+<h2>Pergunta 3</h2>
+
+<p>Analise o trecho de código abaixo da linguagem Python:</p>
+
+<img src="image_questiondb(24).png">
+
+<p>Baseado nesse trecho de código, analise as seguintes afirmações:</p>
+
+<ul>
+<li>I. O código cria uma lista chamada numbers com os valores de 1 a 5.</li>
+<li>II. O código realiza um loop infinito.</li>
+<li>III. A variável num contém o índice do elemento atual.</li>
+<li>IV. Dentro do laço, cada número da lista é multiplicado por 2.</li>
+</ul>
+
+<div class="box">
+<p><strong>Resposta correta:</strong> <span class="correct">I e IV, apenas</span></p>
+
+<p><strong>Explicação:</strong></p>
+
+<ul>
+<li>A lista possui os números de 1 até 5.</li>
+<li>O loop não é infinito.</li>
+<li><code>num</code> guarda o valor do elemento e não o índice.</li>
+<li>Cada elemento é multiplicado por 2 e mostrado na tela.</li>
+</ul>
+
+<div class="code">
+Saída:
+2
+4
+6
+8
+10
+</div>
+</div>
+
+<h2>Pergunta 4</h2>
+
+<p>Analise o trecho de código abaixo da linguagem Python envolvendo o laço while.</p>
+
+<div class="code">
+count = 1
+
+while count <= 5:
+    print(count)
+    count += 1
+</div>
+
+<p>Baseado nesse trecho de código, analise as seguintes afirmações:</p>
+
+<ul>
+<li>I. O laço while é executado enquanto o valor de count for menor a 5.</li>
+<li>II. O loop será executado indefinidamente.</li>
+<li>III. O código define uma variável chamada count com valor inicial 1.</li>
+<li>IV. A variável count é incrementada em 1 a cada repetição.</li>
+</ul>
+
+<div class="box">
+<p><strong>Resposta correta:</strong> <span class="correct">III e IV, apenas</span></p>
+
+<p><strong>Explicação:</strong></p>
+
+<ul>
+<li>Existe incremento na variável.</li>
+<li>Por isso o loop termina normalmente.</li>
+<li>A variável começa em 1.</li>
+<li>O comando <code>count += 1</code> aumenta o valor a cada repetição.</li>
+</ul>
+</div>
+
+
+<h2>Pergunta 5</h2>
+
+<p>
+Considerando que a linguagem Python possui como estrutura de repetição os comandos
+<b>for</b> e <b>while</b>, em um código que se deseja mostrar na tela do usuário
+uma sequência de números inteiros iniciando de 1 até 5 de um em um,
+além do comando <code>print</code> com a variável <code>i</code> sendo inserida dentro do laço,
+determine qual das alternativas corresponde à forma correta de usar a estrutura de repetição <b>for</b>.
+</p>
+
+<ul>
+<li>for i in range(1 to 6):</li>
+<li>for i in range[1, 6]</li>
+<li>for i = 1 to 6:</li>
+<li>for i in range(1, 6)</li>
+<li><span class="correct">for i in range(1, 6):</span></li>
+</ul>
+
+<div class="box">
+
+<p><strong>Resposta correta:</strong></p>
+
+<div class="code">
+for i in range(1, 6):
+    print(i)
+</div>
+
+<p><strong>Explicação:</strong></p>
+
+<ul>
+<li>O <code>range(1, 6)</code> gera os números 1, 2, 3, 4 e 5.</li>
+<li>O número 6 não entra no intervalo.</li>
+<li>Os dois pontos <code>:</code> são obrigatórios no Python.</li>
+<li>Sem os dois pontos ocorre erro de sintaxe.</li>
+</ul>
+
+</div>
+
+</div>
+
+</body>
+</html>
+"""
+
+path = "/mnt/data/pergunta5_completa.html"
+
+with open(path, "w", encoding="utf-8") as f:
+    f.write(html)
+
+print(f"Arquivo criado: {path}")

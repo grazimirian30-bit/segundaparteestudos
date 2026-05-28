@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Questões SQL Resolvidas</title>
+
+<style>
+body {{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+    margin:40px;
+    line-height:1.7;
+}}
+
+.container {{
+    background:white;
+    padding:30px;
+    border-radius:12px;
+}}
+
+h1 {{
+    color:#222;
+}}
+
+h2 {{
+    color:#0b57d0;
+    margin-top:50px;
+}}
+
+img {{
+    max-width:100%;
+    border-radius:8px;
+    border:1px solid #ccc;
+    margin:20px 0;
+}}
+
+.box {{
+    background:#eef5ff;
+    padding:20px;
+    border-left:5px solid #0b57d0;
+    border-radius:8px;
+    margin-top:20px;
+}}
+
+.correct {{
+    color:green;
+    font-weight:bold;
+}}
+
+.code {{
+    background:#272822;
+    color:white;
+    padding:15px;
+    border-radius:8px;
+    font-family:monospace;
+    margin-top:15px;
+}}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Questões SQL Resolvidas</h1>
+
+<h2>Pergunta 1</h2>
+
+<p>Observe a consulta abaixo:</p>
+
+<img src="image_questiondb(17).png">
+
+<p>
+Sobre a consulta, avalie as asserções:
+</p>
+
+<ul>
+<li>I. A consulta não realiza a soma dos valores gastos por cada cliente.</li>
+<li>II. O nome do cliente deveria fazer parte do GROUP BY ou da função de agregação.</li>
+</ul>
+
+<p><strong>Alternativas:</strong></p>
+
+<ul>
+<li><span class="correct">As asserções I e II são verdadeiras, e II justifica I.</span></li>
+<li>I é falsa e II é verdadeira.</li>
+<li>I e II são falsas.</li>
+<li>I e II são verdadeiras, mas II não justifica I.</li>
+<li>I é verdadeira e II é falsa.</li>
+</ul>
+
+<div class="box">
+
+<p><strong>Resposta correta:</strong></p>
+
+<p class="correct">
+As asserções I e II são proposições verdadeiras,
+e a II é uma justificativa correta da I.
+</p>
+
+<p><strong>Explicação:</strong></p>
+
+<ul>
+<li>O campo nome aparece no SELECT.</li>
+<li>Mas ele não está no GROUP BY.</li>
+<li>Isso gera inconsistência na agregação.</li>
+<li>Campos não agregados precisam estar no GROUP BY.</li>
+</ul>
+
+<div class="code">
+GROUP BY cli.ID_Cliente, cli.nome
+</div>
+
+</div>
+
+<h2>Pergunta 2</h2>
+
+<p>Observe as consultas abaixo:</p>
+
+<img src="image_questiondb(12).png">
+
+<p>
+Indique se as afirmações são verdadeiras ou falsas:
+</p>
+
+<ul>
+<li>( ) As duas consultas realizam a mesma operação.</li>
+<li>( ) As duas consultas realizam operações diferentes.</li>
+<li>( ) Para terem o mesmo resultado o AND deveria ser OR.</li>
+<li>( ) BETWEEN deveria ser trocado por IN.</li>
+<li>( ) Ambas apresentam erro por falta de junção.</li>
+</ul>
+
+<p><strong>Alternativas:</strong></p>
+
+<ul>
+<li>F, V, V, F e V.</li>
+<li><span class="correct">V, F, F, F e F.</span></li>
+<li>F, V, V, V e V.</li>
+<li>F, V, V, F e F.</li>
+<li>V, F, F, V e V.</li>
+</ul>
+
+<div class="box">
+
+<p><strong>Resposta correta:</strong></p>
+
+<p class="correct">
+V, F, F, F e F.
+</p>
+
+<p><strong>Explicação:</strong></p>
+
+<ul>
+<li>As duas consultas filtram IDs entre 5 e 10.</li>
+<li>BETWEEN já faz exatamente isso.</li>
+<li>Não existe necessidade de OR ou IN.</li>
+<li>Também não há erro de junção.</li>
+</ul>
+
+<div class="code">
+WHERE ID_Cliente BETWEEN 5 AND 10
+</div>
+
+</div>
+
+<h2>Pergunta 3</h2>
+
+<p>
+Um analista precisa criar consultas SQL Server para:
+</p>
+
+<ul>
+<li>Obter o valor total de pedidos.</li>
+<li>Encontrar pedidos acima da média.</li>
+</ul>
+
+<p><strong>Alternativas:</strong></p>
+
+<ul>
+<li><span class="correct">Funções de agregação como SUM() e AVG().</span></li>
+<li>WHERE exclusiva.</li>
+<li>Procedimentos armazenados obrigatórios.</li>
+<li>Chaves estrangeiras.</li>
+<li>Comandos DDL.</li>
+</ul>
+
+<div class="box">
+
+<p><strong>Resposta correta:</strong></p>
+
+<div class="code">
+SUM()
+AVG()
+</div>
+
+<p><strong>Explicação:</strong></p>
+
+<ul>
+<li>SUM calcula totais.</li>
+<li>AVG calcula médias.</li>
+<li>Essas funções pertencem às funções de agregação.</li>
+</ul>
+
+</div>
+
+<h2>Pergunta 4</h2>
+
+<p>
+Sobre tipos de dados inteiros:
+</p>
+
+<ul>
+<li>I. Para armazenar idade, o melhor tipo é int.</li>
+<li>II. O campo idade sempre armazenará inteiro.</li>
+</ul>
+
+<p><strong>Alternativas:</strong></p>
+
+<ul>
+<li><span class="correct">I é falsa e II é verdadeira.</span></li>
+<li>I e II são verdadeiras e II justifica I.</li>
+<li>I e II são falsas.</li>
+<li>I e II são verdadeiras, mas II não justifica I.</li>
+<li>I é verdadeira e II é falsa.</li>
+</ul>
+
+<div class="box">
+
+<p><strong>Resposta correta:</strong></p>
+
+<p class="correct">
+A asserção I é falsa e II é verdadeira.
+</p>
+
+<p><strong>Explicação:</strong></p>
+
+<ul>
+<li>Idade realmente usa números inteiros.</li>
+<li>Mas INT pode ser exagerado para idade.</li>
+<li>Tipos menores como TINYINT podem ser melhores.</li>
+</ul>
+
+</div>
+
+<h2>Pergunta 5</h2>
+
+<p>Observe as consultas abaixo:</p>
+
+<img src="image_questiondb(15).png">
+
+<p>Analise as afirmações:</p>
+
+<ul>
+<li>I. As duas consultas exibem os mesmos resultados.</li>
+<li>II. A Consulta 2 utiliza subconsultas.</li>
+<li>III. A Consulta 1 associa mais tabelas do que seria necessário.</li>
+<li>IV. As duas consultas exibem resultados diferentes.</li>
+</ul>
+
+<p><strong>Alternativas:</strong></p>
+
+<ul>
+<li>I, apenas.</li>
+<li>II, III e IV, apenas.</li>
+<li><span class="correct">I, II e III, apenas.</span></li>
+<li>I, II, III e IV.</li>
+<li>II, apenas.</li>
+</ul>
+
+<div class="box">
+
+<p><strong>Resposta correta:</strong></p>
+
+<p class="correct">
+I, II e III, apenas.
+</p>
+
+<p><strong>Explicação:</strong></p>
+
+<ul>
+<li>As duas consultas retornam os mesmos dados.</li>
+<li>A Consulta 2 usa subconsultas.</li>
+<li>A Consulta 1 usa mais JOINs do que o necessário.</li>
+<li>A IV é falsa porque os resultados são equivalentes.</li>
+</ul>
+
+<div class="code">
+SELECT nome FROM Logradouro
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
+

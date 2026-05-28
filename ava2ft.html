@@ -1,236 +1,267 @@
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Módulo 2: O Guia Definitivo - Ponteiros e Recursão</title>
-    <style>
-        :root {
-            --primary: #f43f5e;
-            --bg: #020617;
-            --card-bg: #1e293b;
-            --text: #f1f5f9;
-            --accent: #10b981;
-            --code-bg: #000000;
-            --danger: #ef4444;
-        }
+<meta charset="UTF-8">
+<title>Questões de Ponteiros em C</title>
 
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
+<style>
+body {{
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background: #f4f4f4;
+    line-height: 1.7;
+}}
 
-        .container { max-width: 1000px; margin: auto; padding: 40px 20px; }
+.container {{
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+}}
 
-        header {
-            text-align: center;
-            border-bottom: 3px solid var(--primary);
-            padding-bottom: 40px;
-            margin-bottom: 50px;
-            background: linear-gradient(to bottom, #0f172a, var(--bg));
-        }
+h1 {{
+    color: #222;
+}}
 
-        h1 { color: var(--primary); font-size: 2.8rem; margin: 0; }
-        .subtitle { color: #94a3b8; font-size: 1.2rem; margin-top: 10px; }
+h2 {{
+    color: #0b57d0;
+    margin-top: 50px;
+}}
 
-        .section {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 35px;
-            margin-bottom: 40px;
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-        }
+img {{
+    max-width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 20px 0;
+}}
 
-        h2 { 
-            color: var(--primary); 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            font-size: 1.8rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 15px;
-        }
+.box {{
+    background: #eef5ff;
+    padding: 20px;
+    border-left: 5px solid #0b57d0;
+    border-radius: 8px;
+    margin-top: 20px;
+}}
 
-        h3 { color: var(--accent); margin-top: 30px; display: flex; align-items: center; gap: 8px; }
+.correct {{
+    color: green;
+    font-weight: bold;
+}}
 
-        .icon { width: 32px; height: 32px; fill: var(--primary); }
-
-        /* Diagramas Visuais */
-        .diagram-box {
-            background: rgba(0,0,0,0.4);
-            padding: 25px;
-            border-radius: 15px;
-            margin: 20px 0;
-            border: 1px dashed var(--primary);
-        }
-
-        .array-memory {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            margin-top: 15px;
-        }
-
-        .mem-slot {
-            border: 1px solid var(--text);
-            padding: 10px;
-            text-align: center;
-            width: 60px;
-            background: rgba(255,255,255,0.1);
-        }
-
-        .mem-slot.active { border-color: var(--accent); background: rgba(16, 185, 129, 0.2); }
-
-        pre {
-            background: var(--code-bg);
-            padding: 18px;
-            border-radius: 10px;
-            overflow-x: auto;
-            border-left: 5px solid var(--primary);
-            font-family: 'Fira Code', 'Consolas', monospace;
-            font-size: 0.95rem;
-        }
-
-        .warning-box {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid var(--danger);
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 20px;
-        }
-
-        .warning-box strong { color: var(--danger); }
-
-        .badge-tech {
-            background: var(--primary);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .grid-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        @media (max-width: 768px) { .grid-info { grid-template-columns: 1fr; } }
-    </style>
+.code {{
+    background: #272822;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: monospace;
+    margin-top: 15px;
+}}
+</style>
 </head>
+
 <body>
 
 <div class="container">
-    <header>
-        <span class="badge-tech">Engenharia de Computação</span>
-        <h1>Módulo 2: O Guia Definitivo</h1>
-        <p class="subtitle">Dominando Ponteiros, Recursão e Gerenciamento de Memória</p>
-    </header>
 
-    <!-- 1. PONTEIROS E ARRAYS -->
-    <div class="section">
-        <h2>
-            <svg class="icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/></svg>
-            1. Ponteiros e a Relação com Arrays
-        </h2>
-        <p>Um conceito crucial: <strong>O nome de um array é, na verdade, um ponteiro constante para o seu primeiro elemento.</strong></p>
-        
-        <div class="diagram-box">
-            <div style="text-align: center; margin-bottom: 10px;">Array: <code>int vet[4] = {10, 20, 30, 40};</code></div>
-            <div class="array-memory">
-                <div class="mem-slot active">10<br><small>vet[0]</small></div>
-                <div class="mem-slot">20<br><small>vet[1]</small></div>
-                <div class="mem-slot">30<br><small>vet[2]</small></div>
-                <div class="mem-slot">40<br><small>vet[3]</small></div>
-            </div>
-            <p style="text-align: center; margin-top: 15px;">Ao fazer <code>*(vet + 1)</code>, você acessa o valor <b>20</b>.</p>
-        </div>
+<h1>Questões de Linguagem C - Ponteiros</h1>
 
-        <div class="grid-info">
-            <div>
-                <h3>Ponteiro para Função</h3>
-                <p>Sim, é possível apontar para uma função! Isso permite passar funções como argumento para outras funções.</p>
-                <pre>void (*ptr_func)(int);</pre>
-            </div>
-            <div>
-                <h3>Aritmética de Endereços</h3>
-                <p>Subtrair dois ponteiros (<code>p2 - p1</code>) resulta no número de elementos entre eles, não na distância em bytes.</p>
-            </div>
-        </div>
-    </div>
+<h2>Pergunta 1</h2>
 
-    <!-- 2. RECURSIVIDADE E STACK -->
-    <div class="section">
-        <h2>
-            <svg class="icon" viewBox="0 0 24 24"><path d="M12 6v3l4-4l-4-4v3c-4.42 0-8 3.58-8 8c0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6z"/></svg>
-            2. Recursividade e a Pilha do Sistema
-        </h2>
-        <p>Toda vez que uma função recursiva é chamada, o sistema reserva um espaço na <strong>Pilha (Stack)</strong> para os dados daquela chamada.</p>
-        
-        <div class="grid-info">
-            <div class="warning-box">
-                <strong>⚠️ Estouro de Pilha (Stack Overflow):</strong>
-                <p>Ocorre quando a recursão é profunda demais ou o caso base nunca é atingido, consumindo toda a memória RAM reservada para o programa.</p>
-            </div>
-            <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid var(--accent); padding: 20px; border-radius: 12px; margin-top: 20px;">
-                <strong>✅ Recursão em Cauda (Tail Recursion):</strong>
-                <p>É um tipo especial onde a chamada recursiva é a última coisa que a função faz. Compiladores modernos conseguem otimizar isso para não gastar memória extra.</p>
-            </div>
-        </div>
+<p>
+Os ponteiros são um dos conceitos mais importantes na linguagem C,
+permitindo o acesso e manipulação direta dos endereços de memória.
+Com base no funcionamento dos ponteiros, analise as seguintes afirmações:
+</p>
 
-        <h3>Recursividade vs Iteração</h3>
-        <table style="width:100%; border-collapse: collapse; margin-top: 15px;">
-            <tr style="background: #0f172a; color: var(--primary);">
-                <th style="padding: 10px; border: 1px solid #334155;">Critério</th>
-                <th style="padding: 10px; border: 1px solid #334155;">Recursividade</th>
-                <th style="padding: 10px; border: 1px solid #334155;">Iteração (Loop)</th>
-            </tr>
-            <tr>
-                <td style="padding: 10px; border: 1px solid #334155;">Código</td>
-                <td style="padding: 10px; border: 1px solid #334155;">Mais limpo/elegante</td>
-                <td style="padding: 10px; border: 1px solid #334155;">Mais extenso</td>
-            </tr>
-            <tr>
-                <td style="padding: 10px; border: 1px solid #334155;">Memória</td>
-                <td style="padding: 10px; border: 1px solid #334155;">Alta (usa Stack)</td>
-                <td style="padding: 10px; border: 1px solid #334155;">Baixa</td>
-            </tr>
-        </table>
-    </div>
+<ul>
+<li>I. Um ponteiro pode armazenar o endereço de qualquer variável do mesmo tipo ao qual ele foi declarado.</li>
+<li>II. O operador & (E comercial) é utilizado para acessar o conteúdo de um ponteiro.</li>
+<li>III. O operador * (asterisco) pode ser usado para declarar um ponteiro e também para acessar o valor armazenado no endereço ao qual ele aponta.</li>
+<li>IV. A aritmética de ponteiros permite incrementar ou decrementar um ponteiro.</li>
+</ul>
 
-    <!-- 3. PERIGOS E BOAS PRÁTICAS -->
-    <div class="section">
-        <h2>
-            <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-            3. Perigos de Memória (Cuidado!)
-        </h2>
-        <p>Ponteiros são ferramentas perigosas. O PDF cita cuidados essenciais que caem em provas:</p>
-        
-        <ul>
-            <li><strong>Ponteiro Solto (Dangling Pointer):</strong> Acontece quando você tem um ponteiro para uma variável que já foi apagada da memória.</li>
-            <li><strong>Lixo de Memória:</strong> Um ponteiro não inicializado contém um valor aleatório. Tentar usá-lo pode travar o sistema.</li>
-            <li><strong>Inicialização Segura:</strong> Sempre inicialize ponteiros com <code>NULL</code> se não tiver um endereço para eles no momento.</li>
-        </ul>
-        
-        <pre>int *ptr = NULL; // Prática Recomendada</pre>
-    </div>
+<p><strong>Assinale a alternativa correta:</strong></p>
 
-    <!-- BOTÕES FINAIS -->
-    <div style="display: flex; gap: 15px;">
-        <button onclick="window.print()" style="flex: 1; padding: 18px; background: var(--primary); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer;">🖨️ Imprimir Resumo Oficial</button>
-        <button onclick="location.reload()" style="flex: 1; padding: 18px; background: #334155; color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer;">🔄 Reiniciar Estudo</button>
-    </div>
+<ul>
+<li>II e IV, apenas.</li>
+<li><span class="correct">I, III e IV, apenas.</span></li>
+<li>I e II, apenas.</li>
+<li>III e IV, apenas.</li>
+<li>I, II, III e IV.</li>
+</ul>
 
-    <footer style="text-align: center; color: #64748b; margin-top: 50px; font-size: 0.9rem;">
-        Baseado no material acadêmico da USF - Disciplina de Ferramentas e Técnicas de Programação.
-    </footer>
+<div class="box">
+<p><strong>Resposta correta:</strong> I, III e IV, apenas.</p>
+
+<p><strong>Explicação:</strong></p>
+
+<ul>
+<li>A afirmativa I é verdadeira.</li>
+<li>A II é falsa porque o operador & pega endereço e não conteúdo.</li>
+<li>A III é verdadeira porque * declara e desreferencia ponteiros.</li>
+<li>A IV é verdadeira devido à aritmética de ponteiros.</li>
+</ul>
+</div>
+
+<h2>Pergunta 2</h2>
+
+<p>
+Considere o trecho de código que apresenta uma função recursiva na linguagem C:
+</p>
+
+<img src="PastedImage_74ede3f527384bad83247c294a05b8da_image.png">
+
+<p>Alternativas:</p>
+
+
+<ul>
+
+<li><img src="PastedImage_fecbbe4599ab488cb4e654fb1ec80478_image2.png"><li>
+
+
+<li><img src="PastedImage_e17a3dd7922349dbb75810944d3d1ad1_image3.png"><li>
+<li><img src="PastedImage_f9239f8fa3df4742b679d56d4d6c21fb_image4.png"><li>
+<li><img src="PastedImage_9d7130de36b848f291f03e3891d38d6d_image5.png"><li>
+
+<div class="box">
+
+<p><strong>Resposta correta:</strong></p>
+
+<div class="code">
+return trib(n-1)+trib(n-2)+trib(n-3);
+</div>
+
+<p><strong>Explicação:</strong></p>
+
+<p>
+A sequência de Tribonacci funciona como Fibonacci,
+mas soma os três termos anteriores.
+</p>
+
+<div class="code">
+F(n) = F(n-1) + F(n-2) + F(n-3)
+</div>
+
+</div>
+
+<h2>Pergunta 3</h2>
+
+<p>
+Considere o trecho de código da linguagem C abaixo:
+</p>
+
+<img src="PastedImage_f4857d5a2293441786319baaca527047_image.png">
+
+<p>
+Baseado nesse trecho de código, avalie as asserções:
+</p>
+
+<ul>
+<li>I. O programa apresenta um warning na declaração do ponteiro.</li>
+<li>II. O ponteiro não pode ter atribuição na declaração.</li>
+</ul>
+
+<div class="box">
+
+<p><strong>Resposta correta:</strong></p>
+
+<p class="correct">
+A asserção I é verdadeira, e a II é falsa.
+</p>
+
+<p><strong>Explicação:</strong></p>
+
+<ul>
+<li>O warning acontece pela atribuição incorreta envolvendo NULL e char.</li>
+<li>Ponteiros podem sim receber valor na declaração.</li>
+</ul>
+
+</div>
+
+<h2>Pergunta 4</h2>
+
+<p>
+Observe o código:
+</p>
+
+<img src="PastedImage_de7e8955b0294cd582a87dc4170c41ff_image.png">
+
+<div class="box">
+
+<p><strong>Resposta correta:</strong></p>
+
+<p class="correct">
+O programa imprime x = 15.
+</p>
+
+<p><strong>Explicação:</strong></p>
+
+<ul>
+<li>O ponteiro p guarda o endereço de x.</li>
+<li>A operação *p = *p + 5 altera diretamente o valor da variável original.</li>
+<li>Logo x passa de 10 para 15.</li>
+</ul>
+
+<div class="code">
+*p = *p + 5;
+</div>
+
+</div>
+
+<h2>Pergunta 5</h2>
+
+<p>
+Os ponteiros são variáveis especiais que armazenam endereços de memória.
+Analise as afirmativas:
+</p>
+
+<ul>
+<li>( ) O operador * é utilizado para declaração e referenciar endereço.</li>
+<li>( ) O operador & é utilizado para acessar conteúdo armazenado.</li>
+<li>( ) Apontamento múltiplo ocorre quando um ponteiro aponta para outro ponteiro.</li>
+<li>( ) Funções podem retornar endereços utilizando ponteiros.</li>
+<li>( ) Funções podem receber ponteiros como parâmetros.</li>
+</ul>
+
+<p><strong>Alternativas:</strong></p>
+
+<ul>
+<li>V, F, V, V, V.</li>
+<li>V, F, V, F, F.</li>
+<li><span class="correct">F, F, V, V, V.</span></li>
+<li>V, F, V, F, V.</li>
+<li>F, V, F, F, F.</li>
+</ul>
+
+<div class="box">
+
+<p><strong>Resposta correta:</strong></p>
+
+<p class="correct">
+F, F, V, V, V
+</p>
+
+<p><strong>Explicação:</strong></p>
+
+<ul>
+<li>* não referencia endereço. Ele desreferencia.</li>
+<li>& retorna endereço de memória.</li>
+<li>Ponteiro para ponteiro é apontamento múltiplo.</li>
+<li>Funções podem retornar ponteiros.</li>
+<li>Funções podem alterar variáveis usando ponteiros.</li>
+</ul>
+
+</div>
+
 </div>
 
 </body>
 </html>
+"""
+
+path = "/mnt/data/questoes_ponteiros_c.html"
+
+with open(path, "w", encoding="utf-8") as f:
+    f.write(html)
+
+print(path)

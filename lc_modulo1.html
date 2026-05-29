@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Módulo 1 - Linguagem</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      background-image: url("https://images.unsplash.com/photo-1492724441997-5dc865305da7?w=800&q=60");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    /* fundo escuro */
+    body::before {
+      content: "";
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      padding: 20px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
+      cursor: pointer;
+      transition: 0.2s;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .card:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-5px);
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      cursor: pointer;
+      background: #38bdf8;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🛠️ Módulo 1 - Linguagem e Programação</h1>
+
+  <div class="container">
+
+    <!-- RESUMO -->
+    <div class="card" onclick="abrirPagina('resumo1lp.html')
+    ">
+      <h2>💻 Resumo</h2>
+      <p>Conceitos iniciais para linguagem python</p>
+    </div>
+    <div class="container">
+
+    <!-- Questionario de Auto avalição -->
+    <div class="card" onclick="abrirPagina('lcquestm1.html')
+    ">
+      <h2>📋 Questionário</h2>
+      <p>Conceitos iniciais para linguagem python</p>
+    </div>
+
+    <!-- AVALIAÇÕES -->
+    <div class="card" onclick="abrirPagina('ava1lp.html')">
+      <h2>🗄️ Avaliações</h2>
+      <p>Módulo 1</p>
+    </div>
+
+    <!-- VOLTAR -->
+    <button onclick="history.back()">⬅ Voltar</button>
+
+  </div>
+
+  <script>
+    function abrirPagina(pagina){
+      window.location.href = pagina;
+    }
+  </script>
+
+</body>
+</html>

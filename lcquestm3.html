@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Modularização</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f6f9;padding:20px}
+.container{max-width:1000px;margin:auto;background:#fff;padding:20px;border-radius:15px}
+h1{text-align:center}
+.questao{background:#fafafa;margin:20px 0;padding:15px;border-left:5px solid #3498db;border-radius:10px}
+.alternativa{display:block;padding:10px;margin:6px 0;background:#ecf0f1;border-radius:8px;cursor:pointer}
+.feedback{display:none;margin-top:10px;padding:12px;border-radius:10px}
+.correto{background:#d4edda;color:#155724}
+.errado{background:#f8d7da;color:#721c24}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Quiz de Modularização - Comentado pelo Professor</h1>
+
+<div id="quiz"></div>
+
+<script>
+const questoes=[
+{
+p:"1) Qual palavra é usada para declarar uma função em Python?",
+a:["function","create","def","func"],
+c:2,
+e:"A resposta correta é DEF. Em Python utilizamos a palavra reservada 'def' para criar funções e organizar programas em módulos."
+},
+{
+p:"2) O que é um procedimento?",
+a:["Uma função sem retorno","Um laço","Uma variável","Um vetor"],
+c:0,
+e:"Procedimento é um bloco de código que executa tarefas. Normalmente não retorna valores para o programa."
+},
+{
+p:"3) Qual comando devolve um valor em uma função?",
+a:["print","input","stop","return"],
+c:3,
+e:"RETURN envia o resultado calculado pela função para quem a chamou."
+},
+{
+p:"4) Como chamamos os valores recebidos por uma função?",
+a:["Argumentos","Parâmetros","Vetores","Constantes"],
+c:1,
+e:"Os parâmetros aparecem na definição da função e recebem os valores enviados na chamada."
+},
+{
+p:"5) O que é uma função recursiva?",
+a:["Chama a si mesma","Não possui parâmetros","É uma variável","É um operador"],
+c:0,
+e:"Recursividade acontece quando uma função executa uma chamada para ela própria."
+},
+{
+p:"6) Qual é o resultado de fatorial(0)?",
+a:["0","1","2","Erro"],
+c:1,
+e:"O caso base do fatorial é 0! = 1. Sem esse caso base a recursão nunca terminaria."
+},
+{
+p:"7) Em Python, o bloco interno de uma função deve estar:",
+a:["Entre aspas","Comentado","Identado","Entre colchetes"],
+c:2,
+e:"Python usa identação para definir blocos de código. A identação é obrigatória."
+},
+{
+p:"8) Qual a principal vantagem da modularização?",
+a:["Aumentar erros","Organizar e reutilizar código","Apagar memória","Diminuir RAM"],
+c:1,
+e:"Modularização deixa o código mais organizado, reutilizável e fácil de manter."
+},
+{
+p:"9) Qual é o resultado de 2³?",
+a:["6","8","9","12"],
+c:1,
+e:"2³ significa 2 × 2 × 2 = 8."
+},
+{
+p:"10) No exemplo da aula, qual função calculava a média de um array?",
+a:["soma()","media()","calcula_media()","vetor()"],
+c:2,
+e:"O exemplo apresentado utilizava a função calcula_media() para calcular a média dos elementos."
+}
+];
+
+let html="";
+questoes.forEach((q,i)=>{
+html+=`<div class="questao">
+<h3>${q.p}</h3>
+${q.a.map((alt,j)=>`<label class="alternativa"><input type="radio" name="q${i}" onclick="verificar(${i},${j})"> ${String.fromCharCode(65+j)}) ${alt}</label>`).join("")}
+<div id="f${i}" class="feedback"></div>
+</div>`;
+});
+document.getElementById("quiz").innerHTML=html;
+
+function verificar(q,a){
+let fb=document.getElementById("f"+q);
+if(a===questoes[q].c){
+fb.className="feedback correto";
+fb.innerHTML="<h4>✅ Correto!</h4><p><b>Comentário do Professor:</b> "+questoes[q].e+"</p>";
+}else{
+fb.className="feedback errado";
+fb.innerHTML="<h4>❌ Incorreto!</h4><p><b>Comentário do Professor:</b> "+questoes[q].e+"</p>";
+}
+fb.style.display="block";
+}
+</script>
+</div>
+</body>
+</html>

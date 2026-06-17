@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atividade Python - Manipulação de Arquivos</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#eef4ff;
+    margin:20px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+}
+
+h1{
+    text-align:center;
+    color:#004aad;
+    margin-bottom:30px;
+}
+
+.questao{
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+
+h2{
+    color:#004aad;
+}
+
+.alternativa{
+    background:#f5f5f5;
+    padding:10px;
+    margin:5px 0;
+    border-radius:5px;
+}
+
+button{
+    background:#004aad;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:5px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+button:hover{
+    background:#003080;
+}
+
+.gabarito{
+    display:none;
+    margin-top:15px;
+    background:#d4edda;
+    padding:15px;
+    border-left:5px solid green;
+}
+
+.correta{
+    color:green;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Manipulação de Arquivos em Python</h1>
+
+<!-- QUESTÃO 1 -->
+
+<div class="questao">
+
+<h2>Pergunta 1</h2>
+
+<p>
+A manipulação de arquivos em Python é uma tarefa comum e essencial para muitos programas e aplicativos. A linguagem oferece uma variedade de recursos e funções que tornam a leitura, gravação e manipulação de arquivos simples e eficazes.
+</p>
+
+<p>
+Determine qual alternativa corresponde à forma correta de abrir um arquivo para escrita na linguagem Python para que, caso o arquivo já exista, seus dados anteriores sejam apagados.
+</p>
+
+<div class="alternativa">A) arq = fopen("w", "arq.txt")</div>
+<div class="alternativa">B) arq = fopen("r", "arq.txt")</div>
+<div class="alternativa">C) arq = fopen("arq.txt","w")</div>
+<div class="alternativa">D) arq = fopen("arq.txt","a")</div>
+<div class="alternativa">E) arq = fopen("arq.txt","r")</div>
+
+<button onclick="mostrar('g1')">Mostrar Gabarito</button>
+
+<div class="gabarito" id="g1">
+
+<p class="correta">
+Resposta Correta:
+arq = fopen("arq.txt","w")
+</p>
+
+<p>
+O modo <strong>w</strong> (write) abre o arquivo para escrita e apaga todo o conteúdo anterior caso ele já exista.
+</p>
+
+</div>
+
+</div>
+
+<!-- QUESTÃO 2 -->
+
+<div class="questao">
+
+<h2>Pergunta 2</h2>
+
+<p>
+A manipulação de arquivos CSV (Comma-Separated Values) é uma tarefa comum na programação.
+</p>
+
+<p>
+I. A biblioteca csv em Python é uma ferramenta útil para a manipulação de arquivos CSV, facilitando a leitura e escrita de dados tabulares.
+</p>
+
+<p><strong>PORQUE</strong></p>
+
+<p>
+II. O módulo csv oferece funções específicas para analisar e escrever dados CSV, como csv.reader() para leitura e csv.writer() para escrita.
+</p>
+
+<div class="alternativa">
+A) As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.
+</div>
+
+<div class="alternativa">
+B) As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I.
+</div>
+
+<div class="alternativa">
+C) A asserção I é falsa e a II é verdadeira.
+</div>
+
+<div class="alternativa">
+D) A asserção I é verdadeira e a II é falsa.
+</div>
+
+<div class="alternativa">
+E) As asserções I e II são falsas.
+</div>
+
+<button onclick="mostrar('g2')">Mostrar Gabarito</button>
+
+<div class="gabarito" id="g2">
+
+<p class="correta">
+Resposta Correta:
+As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.
+</p>
+
+<p>
+A biblioteca csv possui funções prontas para leitura e escrita, simplificando bastante a manipulação de arquivos CSV.
+</p>
+
+</div>
+
+</div>
+
+<!-- QUESTÃO 3 -->
+
+<div class="questao">
+
+<h2>Pergunta 3</h2>
+
+<p>
+Considere um código Python que abre um arquivo binário usando:
+</p>
+
+<pre>
+with open("dados.bin","rb") as arquivo:
+    dados = arquivo.read()
+</pre>
+
+<p>
+Avalie as afirmações e marque a sequência correta.
+</p>
+
+<div class="alternativa">A) V, F, V, F, F</div>
+<div class="alternativa">B) F, F, V, F, V</div>
+<div class="alternativa">C) V, F, V, V, F</div>
+<div class="alternativa">D) V, V, V, V, F</div>
+<div class="alternativa">E) F, V, F, V, V</div>
+
+<button onclick="mostrar('g3')">Mostrar Gabarito</button>
+
+<div class="gabarito" id="g3">
+
+<p class="correta">
+Resposta Correta:
+V, F, V, F, F
+</p>
+
+<p>
+O modo <strong>rb</strong> significa leitura binária.
+</p>
+
+<p>
+O conteúdo é lido integralmente para a variável dados.
+</p>
+
+<p>
+Não ocorre codificação nem decodificação de caracteres.
+</p>
+
+</div>
+
+</div>
+
+<!-- QUESTÃO 4 -->
+
+<div class="questao">
+
+<h2>Pergunta 4</h2>
+
+<p>
+I. O Python oferece uma variedade de modos de acesso ao abrir arquivos, como "r", "w" e "a".
+</p>
+
+<p><strong>PORQUE</strong></p>
+
+<p>
+II. Ao abrir um arquivo em modo de escrita ("w"), o arquivo será criado se não existir e sobrescrito caso já exista.
+</p>
+
+<div class="alternativa">
+A) A asserção I é verdadeira e a II é falsa.
+</div>
+
+<div class="alternativa">
+B) As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.
+</div>
+
+<div class="alternativa">
+C) As asserções I e II são verdadeiras, mas a II não é justificativa correta da I.
+</div>
+
+<div class="alternativa">
+D) A asserção I é falsa e a II é verdadeira.
+</div>
+
+<div class="alternativa">
+E) As asserções I e II são falsas.
+</div>
+
+<button onclick="mostrar('g4')">Mostrar Gabarito</button>
+
+<div class="gabarito" id="g4">
+
+<p class="correta">
+Resposta Correta:
+As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I.
+</p>
+
+<p>
+O modo "w" é um exemplo dos vários modos de abertura existentes em Python e possui exatamente esse comportamento.
+</p>
+
+</div>
+
+</div>
+
+<!-- QUESTÃO 5 -->
+
+<div class="questao">
+
+<h2>Pergunta 5</h2>
+
+<p>
+Determine qual alternativa corresponde à forma correta de realizar a leitura de somente um caractere de um arquivo de texto já aberto para leitura.
+</p>
+
+<div class="alternativa">A) arquivo.read(1)</div>
+<div class="alternativa">B) arquivo.read(0)</div>
+<div class="alternativa">C) arquivo.readlines(1)</div>
+<div class="alternativa">D) arquivo.readlines()</div>
+<div class="alternativa">E) arquivo.read()</div>
+
+<button onclick="mostrar('g5')">Mostrar Gabarito</button>
+
+<div class="gabarito" id="g5">
+
+<p class="correta">
+Resposta Correta (conforme o gabarito da atividade):
+arquivo.read()
+</p>
+
+<p>
+⚠️ Observação:
+</p>
+
+<p>
+Em Python puro, normalmente <strong>arquivo.read(1)</strong> é utilizado para ler apenas um caractere.
+</p>
+
+<p>
+Entretanto, para esta atividade específica, o sistema considerou correta a alternativa <strong>arquivo.read()</strong>, portanto utilize o gabarito fornecido pela disciplina.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+function mostrar(id){
+    let elemento = document.getElementById(id);
+
+    if(elemento.style.display === "block"){
+        elemento.style.display = "none";
+    }else{
+        elemento.style.display = "block";
+    }
+}
+</script>
+
+</body>
+</html>
